@@ -1,2 +1,8 @@
 cache/cch_*
+cache/CSS/*
+cache/HTML/*
+cache/templates/*
+cache/URI/*
 compile/*
+upload/*
+thumbnails/*
