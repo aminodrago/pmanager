@@ -1,0 +1,15 @@
+<?php return array (
+  'Backup Settings' => 'Configuración de copia de seguridad',
+  'How many backups to keep:' => 'Nº de copias de seguridad a almacenar',
+  'Enable backup:' => 'Activar copia de seguridad:',
+  'Automatic backup is <strong>enabled</strong>.' => 'La copia de seguridad automática está <strong>activada</strong>.',
+  'Your next backup will be approximately <strong>:size</strong> in size.' => 'Tu próxima copia de seguridad tendrá un tamaño de <strong>:size</strong>',
+  'Automatic backup is <strong>disabled</strong>.' => 'La copia de seguridad automática está <strong>desactivada</strong>.',
+  ':number_of_backups last backups will be kept' => 'Se mantendrán las :number_of_backups últimas copias de seguridad',
+  'All backups will be kept' => 'Se mantendrán todas las copias de seguridad',
+  'Existing backups:' => 'Copias de seguridad existentes:',
+  'Backup folder size: <strong>:size</strong>' => 'Tamaño de la carpeta de copias de seguridad: <strong>:size</strong>',
+  'Backup' => 'Copia de Seguridad',
+  'Backup settings have been updated' => 'La configuración de la copia de seguridad ha sido actualizada',
+  'Automatic backup of your activeCollab installation' => 'Copia de seguridad automática de tu instalación de activeCollab',
+) ?>

@@ -1,0 +1,1 @@
+<?php return unserialize('a:6:{s:2:"id";s:1:"4";s:4:"name";s:5:"Claro";s:8:"is_owner";s:1:"0";s:11:"is_archived";s:1:"0";s:10:"created_on";s:19:"2011-07-06 16:58:26";s:10:"updated_on";N;}') ?>

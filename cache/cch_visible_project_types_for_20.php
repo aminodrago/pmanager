@@ -1,0 +1,1 @@
+<?php return unserialize('a:1:{i:1;a:8:{i:0;s:9:"milestone";i:1;s:9:"checklist";i:2;s:10:"repository";i:3;s:10:"discussion";i:4;s:4:"file";i:5;s:4:"page";i:6;s:6:"ticket";i:7;s:10:"timerecord";}}') ?>

@@ -1,0 +1,140 @@
+<?php
+defined( '_JEXEC' ) or die( 'Restricted access' );
+JPlugin::loadLanguage( 'tpl_SG1' );
+?>
+</body></html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->language; ?>" lang="<?php echo $this->language; ?>" >
+<head>
+<jdoc:include type="head" />
+<link rel="stylesheet" href="templates/system/css/system.css" type="text/css" />
+<link rel="stylesheet" href="templates/<?php echo $this->template ?>/css/template.css" type="text/css" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="templates/<?php echo $this->template ?>/css/ie6.css" type="text/css" />
+<![endif]-->
+
+<!--<script src="images/lightbox/jquery/js/jquery-1.3.2.min.js" language="javascript"></script>-->
+<script src="images/lightbox/jquery/js/jquery-ui-1.7.1.custom.min.js" language="javascript"></script>
+<link href="images/lightbox/colorbox/colorbox.css" rel="stylesheet" media="screen" type="text/css" linkindex="0">
+<script type="text/javascript" src="images/lightbox/colorbox/colorbox/jquery.colorbox.js?123456789"></script>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script src="images/prettyCheck/js/prettyCheckboxes.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="images/prettyCheck/css/prettyCheckboxes.css" type="text/css" media="screen" title="prettyComment main stylesheet" charset="utf-8" />
+
+<style>
+
+<?php
+$id = ($_GET['id']);
+if($id == "11"){
+?>
+#main-menu .item1{background-color:#343434;}
+<?php }?>
+
+<?php
+if($id == ""){
+?>
+#main-menu .item1{background-color:#343434;}
+<?php }?>
+
+
+
+</style>	
+
+</head>
+
+<body>
+<div id="nbg">
+	<div id="page">
+    	<div id="header">
+        	<div id="logo"><jdoc:include type="modules" name="logo" /></div><!--end logo-->
+		<div style="color:#ffffff; width:300px; float:right; height:25px; text-align:right; margin:0px 17px 0px 0px; padding-top:10px; font-size:12px; font-weight:bold; font-family:Arial;">
+<?php if( isset($_COOKIE['user_logged_in']) && !empty($_COOKIE['user_logged_in'])){?>
+<a href="index3.php/panel" style="color:#fff; text-decoration:none;">My Account</a> | <a href="index3.php/login/logout" style="color:#fff; text-decoration:none;">Log out</a></div>
+<?php }else{ ?>
+<a href="index3.php/register/step0" style="color:#fff; text-decoration:none;">Sign Up</a> | <a href="index3.php/login" style="color:#fff; text-decoration:none;">Log in</a></div>
+<?php } ?>
+            <div id="main-menu"><jdoc:include type="modules" name="main-menu" /></div><!--end main-menu-->
+            <div class="clear"></div><!--end clear-->
+        </div><!--end header-->
+        <div id="banner"><jdoc:include type="modules" name="banner" /></div><!--end banner-->
+        
+        <div id="content">
+        	<div class="top"></div><!--end top-->
+				<div class="middle">
+                
+                	<div id="content-home">
+                    	<jdoc:include type="message" />
+                    	<?php if($this->params->get('showComponent')) : ?>
+                        <jdoc:include type="component" />
+                    	<?php endif; ?>
+                    </div><!--end content-home-->
+                
+            
+                    
+                    <jdoc:include type="modules" name="bottom" />
+
+                     <div class="left-line-content">&nbsp;</div>
+                     <jdoc:include type="modules" name="target-bottom" />
+                     <!--<jdoc:include type="modules" name="rates" />-->
+
+        		</div><!--end middle-->
+        </div><!--end content-->
+        
+
+	</div><!--end page-->
+    
+    <div id="bottom-bg">
+    	<div class="titlesimg">
+        	<div id="recent-news"><jdoc:include type="modules" name="recent-news" /></div><!--end recent-news-->
+            <div id="contact-area"><jdoc:include type="modules" name="contact-area" /></div><!--end contact-area -->
+            <div id="connects"><jdoc:include type="modules" name="connects"/></div><!--end connects-->
+    	</div><!--end titlesimg-->
+    </div><!--end bottom-bg-->
+
+<div id="footer">
+    <div style=" padding-top:17px; width:864px; margin:0 auto; font-size:13px; color:#FFF;">
+    <table border="0" cellpadding="0" cellspacing="0" width="844px">
+    <tr>
+    <td width="432px">
+     <span style="color:#E7E7E7; text-decoration:none; font-size:12px;">Copyright &copy; 2010 Tel4Talk.com, All rights reserved.</span>
+     </td>
+     <td align="right" width="412px" style="color:#FFF;">
+     <a href="privacy-policy.html" style="font-size:12px; text-decoration:none; color:#E7E7E7;">Privacy Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="terms-and-conditions.html" style="font-size:12px; text-decoration:none; color:#E7E7E7;">Terms and Conditions</a>
+     </td>
+     </tr>
+     </table>
+    </div>
+    </div><!--end footer-->
+</div><!--end nbg-->
+<script type="text/javascript">
+document.write("<" + "script src=\"http" + ((new String(document.location).match( /^https/i )) ? 's' : '') + "://cdn.ideaffect.com/javascripts/widget.js\"><" + "/script>");
+</script>
+
+<script type="text/javascript">
+(function() {
+  new IdeaffectWidget({
+    site: '173',
+    display: 'l',
+    language: 'en',
+    bgColor: '555555',
+    fgColor: 'ffffff',
+    opacity: '75'
+  });
+})();
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22535259-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+
+acx_criticality
+	criticality_id
+	criticality_name
+	criticality_order
+
+acx_risk
+	risk_id
+	risk_project
+	risk_criticality
+	risk_description
+	risk_mitigation
+	
+acx_reference
+	reference_id
+	reference_project
+	reference_link
+	reference_description
+
+acx_project_observations
+	observation_id
+	observation_project
+	observation_description
+	
+acx_resource_type
+	type_id
+	type_name
+	type_order
+	
+acx_resource
+	resource_id
+	resource_firstname
+	resource_lastname
+	resource_phone
+	resource_email
+	
+acx_resource_hability
+	rhability_id
+	rhability_resource
+	rhability_level
+	
+acx_hability
+	hability_id
+	hability_name
+	hability_order
+
+acx_priority
+	priority_id
+	priority_name
+	priority_order
+	
+
+userprojects

@@ -1,0 +1,74 @@
+<?php
+// no direct access
+defined('_JEXEC') or die('Restricted access');
+
+  $db = &JFactory::getDBO();
+  $country = 'UNITED STATES OF AMERICA';
+  $queryRates = "SELECT * FROM `rates` WHERE country='" . $country . "'";
+  if ($country == 'UNITED STATES OF AMERICA' || $country == 'CANADA') {
+    $queryRates .= ' LIMIT 1';
+  }
+
+  $db->setQuery($queryRates);
+  $infoRatesAll = $db->loadObjectList();
+
+
+  $htmlDisplay = "";
+  $htmlDisplayFlag = "";
+  $htmlDisplayFlag2 = "";
+
+  foreach ($infoRatesAll as $infoRatesAllKey => $infoRatesAllValues)
+  {
+
+
+    if (strtolower($infoRatesAllValues->country) == strtolower("UNITED STATES OF AMERICA") or
+        strtolower($infoRatesAllValues->country) == strtolower("CANADA")) {
+      $destination = 1;
+      $infoRatesAllValues->description = '';
+    } else
+    {
+      $destination = $infoRatesAllValues->destination;
+    }
+
+
+    $countryDetail = ucfirst(strtolower($infoRatesAllValues->country));
+    //$countryDetail  = preg_replace('/\b(\w)/e', 'strtoupper("$1")', $countryDetail  );
+    $htmlDisplayFlag = "
+      <table><tr><td width='90px'><img src='" . strtolower($infoRatesAllValues->flag) . "' width='75px'/></td><td><div style='font-family:Arial; color:#000000; font-size:18px; font-weight:bold;'><span style='text-transform:none;'>" . $countryDetail . "</span> All Rates</div></td></tr></table>";
+
+
+    $htmlDisplay .= "
+      <tr>
+        <td><div style='font-family:Arial,sans-serif; font-size: 13px; font-weight: bold; color: #009DCF; text-transform:capitalize; padding: 3px 0 3px 0;'>";
+          $htmlDisplay .= ($countryDetail);
+          $htmlDisplay .= ucfirst(strtolower(($infoRatesAllValues->description)));
+          $htmlDisplay .= "</div>
+        </td>
+        <td><div style='color: #696566; font-size: 12px; font-weight:bold; padding: 3px 0 3px 0;'>+";
+          $htmlDisplay .= ($destination);
+          $htmlDisplay .= "</div>
+        </td>
+        <td><div style='font-size: 15px; font-weight: bold; color: #8BAB09; padding: 3px 0 3px 0;'>";
+          $htmlDisplay .= (number_format(round(($infoRatesAllValues->price * 100), 1), 1, '.', ''));
+          $htmlDisplay .= "&cent;</div>
+        </td>
+      </tr>";
+
+
+    $htmlDisplayFlag2 = '<div style="margin:25px 0px 0px 240px; clear:both;">';
+
+  }
+
+  $content = '<div style="width:100%;">
+        <table border="0" style="font-size: 13px; font-weight: bold; color: #009DCF;margin-top:7px; font-family:Arial; padding-bottom:5px; width:100%; margin-right:6px;">
+          <tr>
+            <td style="border-bottom:1px solid #cccccc; ">Destination</td>
+            <td style="border-bottom:1px solid #cccccc; ">Area Code</td>
+            <td style="border-bottom:1px solid #cccccc; ">Rate /min</td>
+          </tr>' . $htmlDisplay . '
+        </table>
+      </div>';
+
+  echo $htmlDisplay = json_encode($htmlDisplayFlag . $content . $htmlDisplayFlag2);
+  exit;
+?>

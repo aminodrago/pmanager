@@ -1,0 +1,36 @@
+<?php /* Smarty version 2.6.16, created on 2011-07-07 20:49:15
+         compiled from /home/mensajes/public_html/gestion/activecollab/application/modules/system/views/project_objects/visibility.tpl */ ?>
+<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
+smarty_core_load_plugins(array('plugins' => array(array('block', 'title', '/home/mensajes/public_html/gestion/activecollab/application/modules/system/views/project_objects/visibility.tpl', 1, false),array('block', 'add_bread_crumb', '/home/mensajes/public_html/gestion/activecollab/application/modules/system/views/project_objects/visibility.tpl', 2, false),array('block', 'lang', '/home/mensajes/public_html/gestion/activecollab/application/modules/system/views/project_objects/visibility.tpl', 6, false),array('function', 'image_url', '/home/mensajes/public_html/gestion/activecollab/application/modules/system/views/project_objects/visibility.tpl', 5, false),array('function', 'object_link', '/home/mensajes/public_html/gestion/activecollab/application/modules/system/views/project_objects/visibility.tpl', 7, false),array('function', 'project_link', '/home/mensajes/public_html/gestion/activecollab/application/modules/system/views/project_objects/visibility.tpl', 9, false),array('modifier', 'clean', '/home/mensajes/public_html/gestion/activecollab/application/modules/system/views/project_objects/visibility.tpl', 21, false),)), $this); ?>
+<?php $this->_tag_stack[] = array('title', array()); $_block_repeat=true;smarty_block_title($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>Visibility<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_title($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack);  $this->_tag_stack[] = array('add_bread_crumb', array()); $_block_repeat=true;smarty_block_add_bread_crumb($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>Visibility Details<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_add_bread_crumb($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>
+
+<div id="object_visibility_details">
+  <dl class="details_list" <?php if ($this->_tpl_vars['active_object']->getVisibility() <= VISIBILITY_PRIVATE): ?>style="background-image: url('<?php echo smarty_function_image_url(array('name' => "private.gif"), $this);?>
+')"<?php endif; ?>>
+    <dt><?php $this->_tag_stack[] = array('lang', array()); $_block_repeat=true;smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>Object<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?></dt>
+    <dd><?php echo smarty_function_object_link(array('object' => $this->_tpl_vars['active_object']), $this);?>
+</dd>
+    <dt><?php $this->_tag_stack[] = array('lang', array()); $_block_repeat=true;smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>Project<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?></dt>
+    <dd><?php echo smarty_function_project_link(array('project' => $this->_tpl_vars['active_object']->getProject()), $this);?>
+</dd>
+    <dt><?php $this->_tag_stack[] = array('lang', array()); $_block_repeat=true;smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>Visibility<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?></dt>
+  <?php if ($this->_tpl_vars['active_object']->getVisibility() == VISIBILITY_PRIVATE): ?>
+    <dd><?php $this->_tag_stack[] = array('lang', array()); $_block_repeat=true;smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>Private<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?></dd>
+  <?php else: ?>
+    <dd><?php $this->_tag_stack[] = array('lang', array()); $_block_repeat=true;smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>Normal<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?></dd>
+  <?php endif; ?>
+  </dl>
+<?php if ($this->_tpl_vars['active_object']->getVisibility() <= VISIBILITY_PRIVATE): ?>
+  <p><?php $this->_tag_stack[] = array('lang', array('project' => $this->_tpl_vars['active_project']->getName())); $_block_repeat=true;smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>This object is visible only to member with following roles involved with ":project" project<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>:</p>
+  <ol>
+  <?php $_from = $this->_tpl_vars['private_roles']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['private_role']):
+?>
+    <li><?php echo ((is_array($_tmp=$this->_tpl_vars['private_role']->getName())) ? $this->_run_mod_handler('clean', true, $_tmp) : smarty_modifier_clean($_tmp)); ?>
+</li>
+  <?php endforeach; endif; unset($_from); ?>
+  </ol>
+<?php else: ?>
+  <p><?php $this->_tag_stack[] = array('lang', array('project' => $this->_tpl_vars['active_project']->getName())); $_block_repeat=true;smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>This object is visible to anyone involved with ":project" project<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_lang($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>.</p>
+<?php endif; ?>
+</div>

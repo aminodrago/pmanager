@@ -1,0 +1,1 @@
+<?php return unserialize('s:118:"<a href="http://10.10.10.148/pmanager/public/index.php?path_info=people%2F3#user24">Erick Alvarado</a> es responsable.";') ?>
