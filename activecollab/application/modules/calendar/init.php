@@ -8,7 +8,7 @@
   
   define('CALENDAR_MODULE', 'calendar');
   define('CALENDAR_MODULE_PATH', APPLICATION_PATH . '/modules/calendar');
-  
+	
   set_for_autoload('Calendar', CALENDAR_MODULE_PATH . '/models/Calendar.class.php');
   
   /**
