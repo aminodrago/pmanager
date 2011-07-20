@@ -25,11 +25,13 @@
   define('STATUS_CLOSED', 'closed');
   
   // Project object priority
-  define('PRIORITY_LOWEST', -2);
+  /*
+	define('PRIORITY_LOWEST', -2);
   define('PRIORITY_LOW',    -1);
   define('PRIORITY_NORMAL',  0);
   define('PRIORITY_HIGH',    1);
   define('PRIORITY_HIGHEST', 2);
+	*/
   
   // Role types
   define('ROLE_TYPE_SYSTEM', 'system');

@@ -79,7 +79,16 @@
     function init() {
       event_trigger('on_before_init');
 			
-			require APPLICATION_PATH . '/init.php';
+			$sql = 'SELECT priority_id, priority_alias, priority_name
+				FROM acx_priority
+				ORDER BY priority_order';
+			$priorities = db_execute_all($sql);
+			
+			foreach ($priorities as $row) {
+				define('PRIORITY_' . strtoupper($row['priority_alias']), $row['priority_id']);
+			}
+			
+      require APPLICATION_PATH . '/init.php';
       event_trigger('on_after_init');
     } // init
     
