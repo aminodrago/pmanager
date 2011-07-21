@@ -37,11 +37,7 @@
     header("HTTP/1.1 503 Service Unavailable");
     print '<h3>Service Unavailable</h3>';
     print '<p>Info: ' . MAINTENANCE_MESSAGE . '</p>';
-    print '<p>&copy;' . date('Y');
-    if(!LICENSE_COPYRIGHT_REMOVED) {
-      print '. <strong><font face="Verdana" size="1">Re-Nulled by FLIPMODE! - Nulled by Flintmax.</font></strong>';
-    } // if
-    print '.</p>';
+    print '<p>&copy;' . date('Y') . '.</p>';
     die();
   } // if
   

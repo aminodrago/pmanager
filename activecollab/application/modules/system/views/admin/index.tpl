@@ -24,10 +24,6 @@
       <dl>
         <dt>{lang}activeCollab Version{/lang}:</dt>
         <dd>{$ac_version}, {$licence_type}{if $license_branding_removed}, {lang}Branding removed{/lang}{/if}{if $upgrade_to_corporate_url} &middot; {link href=$upgrade_to_corporate_url}Upgrade to Corporate{/link}{/if}{if $branding_removal_url} &middot; {link href=$branding_removal_url}Purchase Branding Removal{/link}{/if}</dd>
-        <dt><strong>{lang}License Key{/lang}</strong>:</dt>
-        <dd><strong>Re-Nulled by FLIPMODE!</strong></dd>
-        <dt>{lang}Support Expires{/lang}:</dt>
-        <dd>Owned License</dd>
         <dt>{lang}Platform{/lang}:</dt>
         <dd>{lang php_version=$php_version mysql_version=$mysql_version}PHP (:php_version), MySQL (:mysql_version){/lang}</dd>
       </dl>

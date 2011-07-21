@@ -1,0 +1,25 @@
+
+Unicamente los usuarios autorizados pueden crear proyectos.
+Unicamente los usuarios autorizados pueden crear tickets.
+Unicamente los usuarios autorizados pueden crear tareas.
+
+El rol "Desarrollador | Diseñador | Maquetador" unicamente puede agregar comentarios y horas a una tarea.
+
+
+Roles:
+	
+	Administrador del sistema
+	Administrador general (dueño)
+	
+	Gerente General de Proyectos
+	Gerente de Cuentas
+	
+	Jefe de Proyectos
+	
+	Coordinador de Proyectos
+	Coordinador de Cuenta
+	Coordinador de Maquetación
+	
+	Diseñador
+	Desarrollador
+	Maquetador

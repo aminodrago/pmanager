@@ -141,6 +141,5 @@
         <div id="work"><?php require UPGRADE_SCRIPT_PATH . '/include/authenticate.php' ?></div>
       </div>
     </div>
-    <p id="footer">&copy; <?php print date('Y') ?> <strong><font face="Verdana" size="1">Re-Nulled by FLIPMODE! - Nulled by Flintmax.</font></strong></p>
   </div>
 </body>

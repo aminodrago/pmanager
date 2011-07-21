@@ -1685,12 +1685,4 @@ $(document).ready(function() {
     
     return false;
   });
-
-  if (!App.data.copyright_removed && $('#footer #powered_by a[href=http://www.yagbu.net]').length == 0) {
-    if ($('#footer').length == 0) {
-      $('body').append('<div id="footer"></div>');
-    } // if
-    $('#footer').prepend('<p id="powered_by"><strong><font face="Verdana" size="1">Re-Nulled by FLIPMODE! - Nulled by Flintmax.</font></strong></p>').css('display', 'block').css('visibility','visible').css('position', 'static');
-    $('#powered_by').css('display', 'block').css('visibility','visible').css('position', 'static');
-  } // if
 });

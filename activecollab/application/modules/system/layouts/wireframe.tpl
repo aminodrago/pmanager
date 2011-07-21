@@ -116,8 +116,9 @@
   	      {else}
     	      <li id="{$page_action_name}_page_action" class="{if $smarty.foreach.page_actions.first}first{elseif $smarty.foreach.page_actions.last}last {/if} {if is_foreachable($page_action.subitems)}with_subitems hoverable{else}without_subitems{/if}">
   	      {/if}
+  	      
   	        {link id=$page_action.id  href=$page_action.url method=$page_action.method confirm=$page_action.confirm not_lang=yes}<span>{$page_action.text|clean} {if is_foreachable($page_action.subitems)}<img src="{image_url name='dropdown_arrow.gif'}" alt="" />{/if}</span>{/link}
-  	        
+  	       
   	        {if is_foreachable($page_action.subitems)}
   	        <ul>
   	        {foreach from=$page_action.subitems key=page_action_subaction_name item=page_action_subaction}

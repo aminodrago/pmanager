@@ -228,7 +228,6 @@
       <div class="clear"></div>
     </div>
     <!-- / contentBlock -->
-    <p id="footer">&copy; <?php print date('Y') ?> <strong><font face="Verdana" size="1">Re-Nulled by FLIPMODE! - Nulled by Flintmax.</font></strong></p>
   </div>
 </body>
 </html>
