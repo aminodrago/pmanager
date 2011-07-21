@@ -6,3 +6,4 @@ cache/URI/*
 compile/*
 upload/*
 thumbnails/*
+logs/*
