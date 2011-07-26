@@ -6,14 +6,14 @@
    * @package activeCollab.modules.tickets
    * @subpackage models
    */
-  class TicketsModule extends Module {
+  class HabilitiesModule extends Module {
     
     /**
      * Plain module name
      *
      * @var string
      */
-    var $name = 'tickets';
+    var $name = 'habilities';
     
     /**
      * Is system module flag
