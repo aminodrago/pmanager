@@ -20,11 +20,6 @@
       </div>
       
       <div id="footer">
-      {if $application->copyright_removed()}
-        <p id="copyright">&copy;{year} by {$owner_company->getName()|clean}</p>
-      {else}
-      	<p id="powered_by"><a href="http://www.vbsupport.org/forum/index.php" target="_blank"><img src="{image_url name=acpoweredwhite.gif}" alt="NulleD By FintMax" /></a></p>
-      {/if}
       	<!-- {benchmark} -->
       </div>
   </div>

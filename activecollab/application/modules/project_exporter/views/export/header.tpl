@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="ActiveCollab v2.3 Nulled by FlintMax + Flipmode! @ www.Yagbu.net" content="ActiveCollab v2.3 Nulled by FlintMax + Flipmode! @ www.Yagbu.net" />
     <link rel="stylesheet" href="{$url_prefix}style/style.css" type="text/css" media="screen"/>
     <title>{$active_project->getName()|clean}</title>
   </head>

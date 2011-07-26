@@ -38,9 +38,6 @@
     print '<h3>Service Unavailable</h3>';
     print '<p>Info: ' . MAINTENANCE_MESSAGE . '</p>';
     print '<p>&copy;' . date('Y');
-    if(!LICENSE_COPYRIGHT_REMOVED) {
-      print '. <a href="http://www.vbsupport.org/forum/index.php" title="NulleD By">FintMax</a>';
-    } // if
     print '.</p>';
     die();
   } // if

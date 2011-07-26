@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.16, created on 2011-07-20 16:09:50
+<?php /* Smarty version 2.6.16, created on 2011-07-25 17:02:34
          compiled from /var/www/pmanager/activecollab/application/modules/system/views/project/_card.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'clean', '/var/www/pmanager/activecollab/application/modules/system/views/project/_card.tpl', 1, false),array('modifier', 'date', '/var/www/pmanager/activecollab/application/modules/system/views/project/_card.tpl', 13, false),array('block', 'lang', '/var/www/pmanager/activecollab/application/modules/system/views/project/_card.tpl', 5, false),array('function', 'user_link', '/var/www/pmanager/activecollab/application/modules/system/views/project/_card.tpl', 6, false),array('function', 'project_progress', '/var/www/pmanager/activecollab/application/modules/system/views/project/_card.tpl', 18, false),)), $this); ?>

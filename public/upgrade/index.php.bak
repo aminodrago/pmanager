@@ -141,6 +141,5 @@
         <div id="work"><?php require UPGRADE_SCRIPT_PATH . '/include/authenticate.php' ?></div>
       </div>
     </div>
-    <p id="footer">&copy; <?php print date('Y') ?> <a href="http://www.vbsupport/org/forum/index.php" target="_blank">NulleD By FintMax</a>. Все права зацарапаны.</p>
   </div>
 </body>

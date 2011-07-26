@@ -22,7 +22,7 @@
   	  'add_project',
   	  'manage_company_details',
   	  'can_see_private_objects',
-  	  'manage_trash',
+  	  'manage_trash'
   	));
   } // system_handle_on_system_permissions
 

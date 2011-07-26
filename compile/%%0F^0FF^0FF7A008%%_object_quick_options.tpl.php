@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.16, created on 2011-07-20 20:59:45
+<?php /* Smarty version 2.6.16, created on 2011-07-25 18:41:52
          compiled from /var/www/pmanager/activecollab/application/modules/system/views/_object_quick_options.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'clean', '/var/www/pmanager/activecollab/application/modules/system/views/_object_quick_options.tpl', 3, false),array('block', 'link', '/var/www/pmanager/activecollab/application/modules/system/views/_object_quick_options.tpl', 3, false),)), $this); ?>

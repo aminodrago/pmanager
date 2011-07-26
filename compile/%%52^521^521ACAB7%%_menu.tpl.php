@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.16, created on 2011-07-20 15:54:20
+<?php /* Smarty version 2.6.16, created on 2011-07-25 16:42:57
          compiled from /var/www/pmanager/activecollab/application/modules/system/views/_menu.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', '/var/www/pmanager/activecollab/application/modules/system/views/_menu.tpl', 7, false),array('modifier', 'clean', '/var/www/pmanager/activecollab/application/modules/system/views/_menu.tpl', 7, false),)), $this); ?>

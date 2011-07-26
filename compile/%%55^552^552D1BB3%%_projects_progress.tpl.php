@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.16, created on 2011-07-20 16:09:50
+<?php /* Smarty version 2.6.16, created on 2011-07-25 17:02:34
          compiled from /var/www/pmanager/activecollab/application/modules/system/views/project/_projects_progress.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'lang', '/var/www/pmanager/activecollab/application/modules/system/views/project/_projects_progress.tpl', 3, false),)), $this); ?>

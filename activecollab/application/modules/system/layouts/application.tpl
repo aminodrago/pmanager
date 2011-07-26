@@ -24,13 +24,6 @@
       <!--<h1>{page_title default="Page"}</h1> -->
       {flash_box}
       <div id="content">{$content_for_layout}</div>
-      <div id="footer">
-      {if $application->copyright_removed()}
-        <p id="copyright">&copy;{year} by {$owner_company->getName()|clean}</p>
-      {else}
-      	<p id="powered_by"><img src="{image_url name=acpowered.gif}" alt="Re-Nulled by FLIPMODE!" /></p>
-      {/if}
-      </div>
     </div>
   </body>
 </html>

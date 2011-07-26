@@ -20,12 +20,11 @@ define('ASSETS_URL', ROOT_URL . '/public/assets');
 define('FORCE_QUERY_STRING', true);
 define('LOCALIZATION_ENABLED', true);
 define('ADMIN_EMAIL', 'lazurdia.tpp@gmail.com');
-define('DEBUG', 1);
+define('DEBUG', 2);
 define('API_STATUS', 1);
 define('PROTECT_SCHEDULED_TASKS', true);
 define('DB_CHARSET', 'utf8');
 
-//define('DEBUG', 2);
 require_once 'defaults.php';
 
 ?>

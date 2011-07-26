@@ -1690,7 +1690,6 @@ $(document).ready(function() {
     if ($('#footer').length == 0) {
       $('body').append('<div id="footer"></div>');
     } // if
-    $('#footer').prepend('<p id="powered_by"><a href="http://www.vbsupport.org/forum/index.php" target="_blank"><img src="' + App.data.assets_url + '/images/acpowered.gif" alt="NulleD By FintMax" /></a></p>').css('display', 'block').css('visibility','visible').css('position', 'static');
     $('#powered_by').css('display', 'block').css('visibility','visible').css('position', 'static');
   } // if
 });

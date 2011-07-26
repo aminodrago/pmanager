@@ -228,7 +228,6 @@
       <div class="clear"></div>
     </div>
     <!-- / contentBlock -->
-    <p id="footer">&copy; <?php print date('Y') ?> <a href="http://www.vbsupport.org/forum/index.php" target="_blank">NulleD By FintMax</a>. Все права зацарапаны.</p>
   </div>
 </body>
 </html>
