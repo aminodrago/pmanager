@@ -1,9 +1,9 @@
 <?php
 
   /**
-   * Tickets module definition
+   * Habilities module definition
    *
-   * @package activeCollab.modules.tickets
+   * @package activeCollab.modules.habilities
    * @subpackage models
    */
   class HabilitiesModule extends Module {
@@ -27,7 +27,7 @@
      *
      * @var string
      */
-    var $version = '2.0';
+    var $version = '1.0';
     
     // ---------------------------------------------------
     //  Events and Routes
@@ -40,17 +40,17 @@
      * @return null
      */
     function defineRoutes(&$router) {
-      $router->map('project_tickets', 'projects/:project_id/tickets', array('controller' => 'tickets', 'action' => 'index'), array('project_id' => '\d+'));
-      $router->map('project_tickets_archive', 'projects/:project_id/tickets/archive', array('controller' => 'tickets', 'action' => 'archive'), array('project_id' => '\d+'));
-      $router->map('project_tickets_mass_edit', 'projects/:project_id/tickets/mass-edit', array('controller' => 'tickets', 'action' => 'mass_update'), array('project_id' => '\d+'));
-      $router->map('project_tickets_add', 'projects/:project_id/tickets/add', array('controller' => 'tickets', 'action' => 'add'), array('project_id' => '\d+'));
-      $router->map('project_tickets_quick_add', 'projects/:project_id/tickets/quick-add', array('controller' => 'tickets', 'action' => 'quick_add'), array('project_id' => '\d+'));
-      $router->map('project_tickets_export', 'projects/:project_id/tickets/export', array('controller' => 'tickets', 'action' => 'export'), array('project_id' => '\d+'));
-      $router->map('project_tickets_reorder', 'projects/:project_id/tickets/reorder', array('controller' => 'tickets', 'action' => 'reorder_tickets'), array('project_id' => '\d+'));
+      $router->map('project_habilities', 'projects/:project_id/habilities', array('controller' => 'habilities', 'action' => 'index'), array('project_id' => '\d+'));
+      $router->map('project_habilities_archive', 'projects/:project_id/habilities/archive', array('controller' => 'habilities', 'action' => 'archive'), array('project_id' => '\d+'));
+      $router->map('project_habilities_mass_edit', 'projects/:project_id/habilities/mass-edit', array('controller' => 'habilities', 'action' => 'mass_update'), array('project_id' => '\d+'));
+      $router->map('project_habilities_add', 'projects/:project_id/habilities/add', array('controller' => 'habilities', 'action' => 'add'), array('project_id' => '\d+'));
+      $router->map('project_habilities_quick_add', 'projects/:project_id/habilities/quick-add', array('controller' => 'habilities', 'action' => 'quick_add'), array('project_id' => '\d+'));
+      $router->map('project_habilities_export', 'projects/:project_id/habilities/export', array('controller' => 'habilities', 'action' => 'export'), array('project_id' => '\d+'));
+      $router->map('project_habilities_reorder', 'projects/:project_id/habilities/reorder', array('controller' => 'habilities', 'action' => 'reorder_habilities'), array('project_id' => '\d+'));
       
-      $router->map('project_ticket', 'projects/:project_id/tickets/:ticket_id', array('controller' => 'tickets', 'action' => 'view'), array('project_id' => '\d+', 'ticket_id' => '\d+'));
-      $router->map('project_ticket_edit', 'projects/:project_id/tickets/:ticket_id/edit', array('controller' => 'tickets', 'action' => 'edit'), array('project_id' => '\d+', 'ticket_id' => '\d+'));
-      $router->map('project_ticket_changes', 'projects/:project_id/tickets/:ticket_id/changes', array('controller' => 'tickets', 'action' => 'changes'), array('project_id' => '\d+', 'ticket_id' => '\d+'));
+      $router->map('project_hability', 'projects/:project_id/habilities/:hability_id', array('controller' => 'habilities', 'action' => 'view'), array('project_id' => '\d+', 'ticket_id' => '\d+'));
+      $router->map('project_hability_edit', 'projects/:project_id/habilities/:hability_id/edit', array('controller' => 'habilities', 'action' => 'edit'), array('project_id' => '\d+', 'ticket_id' => '\d+'));
+      $router->map('project_hability_changes', 'projects/:project_id/habilities/:hability_id/changes', array('controller' => 'habilities', 'action' => 'changes'), array('project_id' => '\d+', 'hability_id' => '\d+'));
     } // defineRoutes
     
     /**
@@ -91,22 +91,15 @@
     function install() {
       $storage_engine = defined('DB_CAN_TRANSACT') && DB_CAN_TRANSACT ? 'ENGINE=InnoDB' : '';
       $default_charset = defined('DB_CHARSET') && (DB_CHARSET == 'utf8') ? 'DEFAULT CHARSET=utf8' : '';
+			
+			db_execute("CREATE TABLE " . TABLE_PREFIX . "hability (
+				hability_id int(11) NOT NULL AUTO_INCREMENT,
+				hability_name varchar(100) NOT NULL,
+				hability_order tinyint(2) NOT NULL,
+				PRIMARY KEY (hability_id)
+			) $storange_engine $default_charseet;");
     
-      db_execute("CREATE TABLE " . TABLE_PREFIX . "ticket_changes (
-        id int(10) unsigned NOT NULL auto_increment,
-        ticket_id int(10) unsigned NOT NULL default '0',
-        version int(10) unsigned NOT NULL default '0',
-        old_value text,
-        new_value text,
-        changes longtext,
-        created_on datetime default NULL,
-        created_by_id int(11) default NULL,
-        created_by_name varchar(100) default NULL,
-        created_by_email varchar(150) default NULL,
-        PRIMARY KEY  (id)
-      ) $storage_engine $default_charset;");
-      
-      $this->addConfigOption('ticket_categories', SYSTEM_CONFIG_OPTION, array('General'));
+      $this->addConfigOption('hability_categories', SYSTEM_CONFIG_OPTION, array('General'));
       
       return parent::install();
     } // install
@@ -118,7 +111,7 @@
      * @return boolean
      */
     function uninstall() {
-      db_execute("DROP TABLE IF EXISTS " . TABLE_PREFIX . "ticket_changes");
+      db_execute("DROP TABLE IF EXISTS " . TABLE_PREFIX . "habilities");
       
       return parent::uninstall();
     } // uninstall
@@ -129,7 +122,7 @@
      * @return string
      */
     function getDisplayName() {
-      return lang('Tickets');
+      return lang('Habilities');
     } // getDisplayName
     
     /**
@@ -139,7 +132,7 @@
      * @return string
      */
     function getDescription() {
-      return lang('Adds issue tracking support to projects');
+      return lang('Add skills and habilities to resources and users');
     } // getDescription
     
     /**
@@ -149,7 +142,7 @@
      * @return string
      */
     function getUninstallMessage() {
-      return lang('Module will be deactivated. All tickets from all projects will be deleted');
+      return lang('Module will be deactivated. All habilities from all projects will be deleted');
     } // getUninstallMessage
     
   }

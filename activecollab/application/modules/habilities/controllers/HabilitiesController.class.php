@@ -6,24 +6,24 @@
   /**
    * Tickets controller
    *
-   * @package activeCollab.modules.tickets
+   * @package activeCollab.modules.habilities
    * @subpackage controllers
    */
-  class TicketsController extends ProjectController {
+  class HabilitiesController extends ProjectController {
     
     /**
      * Active module
      *
      * @var string
      */
-    var $active_module = TICKETS_MODULE;
+    var $active_module = HABILITIES_MODULE;
     
     /**
-     * Active ticket
+     * Active hability
      *
-     * @var Ticket
+     * @var Hability
      */
-    var $active_ticket;
+    var $active_hability;
     
     /**
      * Enable categories support for this controller
@@ -48,85 +48,85 @@
     function __construct($request) {
       parent::__construct($request);
       
-      if($this->logged_user->getProjectPermission('ticket', $this->active_project) < PROJECT_PERMISSION_ACCESS) {
+      if($this->logged_user->getProjectPermission('hability', $this->active_project) < PROJECT_PERMISSION_ACCESS) {
         $this->httpError(HTTP_ERR_FORBIDDEN);
       } // if
       
-      $tickets_url = tickets_module_url($this->active_project);
-      $archive_url = assemble_url('project_tickets_archive', array('project_id' => $this->active_project->getId()));
+      $habilities_url = habilities_module_url($this->active_project);
+      $archive_url = assemble_url('project_habilities_archive', array('project_id' => $this->active_project->getId()));
       
-      $this->wireframe->addBreadCrumb(lang('Tickets'), $tickets_url);
+      $this->wireframe->addBreadCrumb(lang('Tickets'), $habilities_url);
       
-      $add_ticket_url = false;
-      if(Ticket::canAdd($this->logged_user, $this->active_project)) {
+      $add_hability_url = false;
+      if(Hability::canAdd($this->logged_user, $this->active_project)) {
         $params = null;
         if($this->active_category->isLoaded()) {
           $params = array('category_id' => $this->active_category->getId());
         } // if
-        $add_ticket_url = tickets_module_add_ticket_url($this->active_project, $params);
+        $add_hability_url = habilities_module_add_hability_url($this->active_project, $params);
         
-        $this->wireframe->addPageAction(lang('New Ticket'), $add_ticket_url);
+        $this->wireframe->addPageAction(lang('New Ticket'), $add_hability_url);
       } // if
       
-      $ticket_id = $this->request->getId('ticket_id');
-      if($ticket_id) {
-        $this->active_ticket = Tickets::findByTicketId($this->active_project, $ticket_id);
+      $hability_id = $this->request->getId('hability_id');
+      if($hability_id) {
+        $this->active_hability = Habilities::findByHabilityId($this->active_project, $hability_id);
       } // if
       
       if(instance_of($this->active_category, 'Category') && $this->active_category->isLoaded()) {
         $this->wireframe->addBreadCrumb($this->active_category->getName(), $this->active_category->getViewUrl());
       } // if
       
-      if(instance_of($this->active_ticket, 'Ticket')) {
-        if($this->active_ticket->isCompleted()) {
+      if(instance_of($this->active_hability, 'Ticket')) {
+        if($this->active_hability->isCompleted()) {
           $this->wireframe->addBreadCrumb(lang('Archive'), $archive_url);
         } // if
-        $this->wireframe->addBreadCrumb($this->active_ticket->getName(), $this->active_ticket->getViewUrl());
+        $this->wireframe->addBreadCrumb($this->active_hability->getName(), $this->active_hability->getViewUrl());
       } else {
-        $this->active_ticket = new Ticket();
+        $this->active_hability = new Ticket();
       } // if
       
       $this->smarty->assign(array(
-        'tickets_url'           => $tickets_url,
-        'tickets_archive_url'   => $archive_url,
-        'add_ticket_url'        => $add_ticket_url,
-        'active_ticket'         => $this->active_ticket,
-        'page_tab'              => 'tickets',
-        'mass_edit_tickets_url' => assemble_url('project_tickets_mass_edit', array('project_id' => $this->active_project->getId())),
+        'habilities_url'           => $habilities_url,
+        'habilities_archive_url'   => $archive_url,
+        'add_hability_url'        => $add_hability_url,
+        'active_hability'         => $this->active_hability,
+        'page_tab'              => 'habilities',
+        'mass_edit_habilities_url' => assemble_url('project_habilities_mass_edit', array('project_id' => $this->active_project->getId())),
       ));
     } // __construct
     
     /**
-     * Show tickets index page
+     * Show habilities index page
      *
      * @param void
      * @return null
      */
     function index() {
       if($this->request->isApiCall()) {
-        $this->serveData(Tickets::findOpenByProject($this->active_project, STATE_VISIBLE, $this->logged_user->getVisibility()), 'tickets');
+        $this->serveData(Tickets::findOpenByProject($this->active_project, STATE_VISIBLE, $this->logged_user->getVisibility()), 'habilities');
       } else {
         if($this->active_category->isLoaded()) {
-          $tickets = Milestones::groupByMilestone(
+          $habilities = Milestones::groupByMilestone(
             Tickets::findOpenByCategory($this->active_category, STATE_VISIBLE, $this->logged_user->getVisibility()), 
             STATE_VISIBLE, $this->logged_user->getVisibility()
           );
         } else {
-          $tickets = Milestones::groupByMilestone(
-            Tickets::findOpenByProject($this->active_project, STATE_VISIBLE, $this->logged_user->getVisibility()), 
+          $hability = Milestones::groupByMilestone(
+            Habilities::findOpenByProject($this->active_project, STATE_VISIBLE, $this->logged_user->getVisibility()), 
             STATE_VISIBLE, $this->logged_user->getVisibility()
           );
         } // if
         
         $this->smarty->assign(array(
-          'categories' => Categories::findByModuleSection($this->active_project, TICKETS_MODULE, 'tickets'),
-          'groupped_tickets' => $tickets,
+          'categories' => Categories::findByModuleSection($this->active_project, TICKETS_MODULE, 'habilities'),
+          'groupped_habilities' => $habilities,
           'milestones' => Milestones::findActiveByProject($this->active_project, STATE_VISIBLE, $this->logged_user->getVisibility()),
-          'can_add_ticket' => Ticket::canAdd($this->logged_user, $this->active_project),
+          'can_add_hability' => Hability::canAdd($this->logged_user, $this->active_project),
           'can_manage_categories' => $this->logged_user->isProjectLeader($this->active_project) || $this->logged_user->isProjectManager(), 
         ));
         
-        js_assign('can_manage_tickets', Ticket::canManage($this->logged_user, $this->active_project));
+        js_assign('can_manage_habilities', Hability::canManage($this->logged_user, $this->active_project));
       } // if
     } // index
     
@@ -137,23 +137,23 @@
      * @return null
      */
     function view_category() {
-      $this->redirectTo('project_tickets', array(
+      $this->redirectTo('project_habilities', array(
         'project_id' => $this->active_project->getId(),
         'category_id' => $this->request->getId('category_id')
       ));
     } // view_category
     
     /**
-     * Show completed tickets
+     * Show completed habilities
      *
      * @param void
      * @return null
      */
     function archive() {
       if($this->request->isApiCall()) {
-        $this->serveData(Tickets::findCompletedByProject($this->active_project, STATE_VISIBLE, $this->logged_user->getVisibility()), 'tickets');
+        $this->serveData(Tickets::findCompletedByProject($this->active_project, STATE_VISIBLE, $this->logged_user->getVisibility()), 'habilities');
       } else {
-        $this->wireframe->addBreadCrumb(lang('Archive'), assemble_url('project_tickets_archive', array('project_id' => $this->active_project->getId())));
+        $this->wireframe->addBreadCrumb(lang('Archive'), assemble_url('project_habilities_archive', array('project_id' => $this->active_project->getId())));
       
         $per_page = 15;
         $page = (integer) $this->request->get('page');
@@ -162,61 +162,61 @@
         } // if
         
         if($this->active_category->isLoaded()) {
-          list($tickets, $pagination) = Tickets::paginateCompletedByCategory($this->active_category, $page, $per_page, STATE_VISIBLE, $this->logged_user->getVisibility());
+          list($habilities, $pagination) = Habilities::paginateCompletedByCategory($this->active_category, $page, $per_page, STATE_VISIBLE, $this->logged_user->getVisibility());
         } else {
-          list($tickets, $pagination) = Tickets::paginateCompletedByProject($this->active_project, $page, $per_page, STATE_VISIBLE, $this->logged_user->getVisibility());
+          list($habilities, $pagination) = Habilities::paginateCompletedByProject($this->active_project, $page, $per_page, STATE_VISIBLE, $this->logged_user->getVisibility());
         } // if
         
         $this->smarty->assign(array(
-          'tickets' => $tickets,
+          'habilities' => $habilities,
           'pagination' => $pagination,
-          'categories' => Categories::findByModuleSection($this->active_project, TICKETS_MODULE, 'tickets'),
+          'categories' => Categories::findByModuleSection($this->active_project, TICKETS_MODULE, 'habilities'),
         ));
       } // if
     } // archive
     
     /**
-     * Show single ticket
+     * Show single hability
      *
      * @param void
      * @return null
      */
     function view() {
-      if($this->active_ticket->isNew()) {
+      if($this->active_hability->isNew()) {
         $this->httpError(HTTP_ERR_NOT_FOUND);
       } // if
       
-      if(!$this->active_ticket->canView($this->logged_user)) {
+      if(!$this->active_hability->canView($this->logged_user)) {
         $this->httpError(HTTP_ERR_FORBIDDEN);
       } // if
       
       if($this->request->isApiCall()) {
-        $this->serveData($this->active_ticket, 'ticket', array(
+        $this->serveData($this->active_hability, 'hability', array(
           'describe_comments'    => true, 
           'describe_tasks'       => true, 
           'describe_attachments' => true,
           'describe_assignees'   => true,
         ));
       } else {
-        ProjectObjectViews::log($this->active_ticket, $this->logged_user);
+        ProjectObjectViews::log($this->active_hability, $this->logged_user);
         
         $page = (integer) $this->request->get('page');
         if($page < 1) {
           $page = 1;
         } // if
         
-        list($comments, $pagination) = $this->active_ticket->paginateComments($page, $this->active_ticket->comments_per_page, $this->logged_user->getVisibility());
+        list($comments, $pagination) = $this->active_hability->paginateComments($page, $this->active_hability->comments_per_page, $this->logged_user->getVisibility());
         
         $this->smarty->assign(array(
           'comments' => $comments,
           'pagination' => $pagination,
-          'counter' => ($page - 1) * $this->active_ticket->comments_per_page,
+          'counter' => ($page - 1) * $this->active_hability->comments_per_page,
         ));
       } // if
     } // view
     
     /**
-     * Create a new ticket
+     * Create a new hability
      *
      * @param void
      * @return null
@@ -232,35 +232,35 @@
         $this->httpError(HTTP_ERR_FORBIDDEN);
       } // if
       
-      $ticket_data = $this->request->post('ticket');
-      if(!is_array($ticket_data)) {
-        $ticket_data = array(
+      $hability_data = $this->request->post('hability');
+      if(!is_array($hability_data)) {
+        $hability_data = array(
           'visibility'   => $this->active_project->getDefaultVisibility(),
           'milestone_id' => $this->request->get('milestone_id'),
           'parent_id'    => $this->request->get('category_id'),
         );
       } // if
       
-      $this->smarty->assign('ticket_data', $ticket_data);
+      $this->smarty->assign('hability_data', $hability_data);
       
       if($this->request->isSubmitted()) {
         db_begin_work();
                
-        $this->active_ticket = new Ticket();
+        $this->active_hability = new Hability();
         
-        attach_from_files($this->active_ticket, $this->logged_user);
+        attach_from_files($this->active_hability, $this->logged_user);
         
-        $this->active_ticket->setAttributes($ticket_data);
-        $this->active_ticket->setProjectId($this->active_project->getId());
-        $this->active_ticket->setCreatedBy($this->logged_user);
-        $this->active_ticket->setState(STATE_VISIBLE);
+        $this->active_hability->setAttributes($hability_data);
+        $this->active_hability->setProjectId($this->active_project->getId());
+        $this->active_hability->setCreatedBy($this->logged_user);
+        $this->active_hability->setState(STATE_VISIBLE);
         
-        $save = $this->active_ticket->save();
+        $save = $this->active_hability->save();
         
         if($save && !is_error($save)) {
           $subscribers = array($this->logged_user->getId());
-          if(is_foreachable(array_var($ticket_data['assignees'], 0))) {
-            $subscribers = array_merge($subscribers, array_var($ticket_data['assignees'], 0));
+          if(is_foreachable(array_var($hability_data['assignees'], 0))) {
+            $subscribers = array_merge($subscribers, array_var($hability_data['assignees'], 0));
           } else {
             $subscribers[] = $this->active_project->getLeaderId();
           } // if
@@ -269,16 +269,16 @@
             $subscribers[] = $this->active_project->getLeaderId();
           } // if
           
-          Subscriptions::subscribeUsers($subscribers, $this->active_ticket);
+          Subscriptions::subscribeUsers($subscribers, $this->active_hability);
           
           db_commit();
-          $this->active_ticket->ready();
+          $this->active_hability->ready();
           
           if($this->request->getFormat() == FORMAT_HTML) {
-            flash_success('Ticket #:ticket_id has been added', array('ticket_id' => $this->active_ticket->getTicketId()));
-            $this->redirectToUrl($this->active_ticket->getViewUrl());
+            flash_success('Hability #:hability has been added', array('hability_id' => $this->active_hability->getHabilityId()));
+            $this->redirectToUrl($this->active_hability->getViewUrl());
           } else {
-            $this->serveData($this->active_ticket, 'ticket');
+            $this->serveData($this->active_hability, 'hability');
           } // if
         } else {
           db_rollback();
@@ -293,64 +293,64 @@
     } // add
     
     /**
-     * Quick add ticket
+     * Quick add hability
      *
      * @param void
      * @return null
      */
     function quick_add() {
-      if(!Ticket::canAdd($this->logged_user, $this->active_project)) {
+      if(!Hability::canAdd($this->logged_user, $this->active_project)) {
       	$this->httpError(HTTP_ERR_FORBIDDEN, lang("You don't have permission for this action"), true, true);
       } // if
       
       $this->skip_layout = true;
            
-      $ticket_data = $this->request->post('ticket');
-      if(!is_array($ticket_data)) {
-        $ticket_data = array(
+      $hability_data = $this->request->post('hability');
+      if(!is_array($hability_data)) {
+        $hability_data = array(
           'visibility'   => $this->active_project->getDefaultVisibility(),
         );
       } // if
       
       $this->smarty->assign(array(
-        'ticket_data' => $ticket_data,
-        'quick_add_url' => assemble_url('project_tickets_quick_add', array('project_id' => $this->active_project->getId())),
+        'hability_data' => $hability_data,
+        'quick_add_url' => assemble_url('project_habilities_quick_add', array('project_id' => $this->active_project->getId())),
       ));
       
       if ($this->request->isSubmitted()) {
         db_begin_work();
         
-        $this->active_ticket = new Ticket();
+        $this->active_hability = new Hability();
         
         if (count($_FILES > 0)) {
-          attach_from_files($this->active_ticket, $this->logged_user);  
+          attach_from_files($this->active_hability, $this->logged_user);  
         } // if
         
-        $this->active_ticket->setAttributes($ticket_data);
-        $this->active_ticket->setBody(clean(array_var($ticket_data, 'body', null)));
-        if(!isset($ticket_data['priority'])) {
-          $this->active_ticket->setPriority(PRIORITY_NORMAL);
+        $this->active_hability->setAttributes($hability_data);
+        $this->active_hability->setBody(clean(array_var($hability_data, 'body', null)));
+        if(!isset($hability_data['priority'])) {
+          $this->active_hability->setPriority(PRIORITY_NORMAL);
         } // if
-        $this->active_ticket->setProjectId($this->active_project->getId());
-        $this->active_ticket->setCreatedBy($this->logged_user);
-        $this->active_ticket->setState(STATE_VISIBLE);
+        $this->active_hability->setProjectId($this->active_project->getId());
+        $this->active_hability->setCreatedBy($this->logged_user);
+        $this->active_hability->setState(STATE_VISIBLE);
         
-        $save = $this->active_ticket->save();
+        $save = $this->active_hability->save();
         if($save && !is_error($save)) {
           $subscribers = array($this->logged_user->getId());
-          if(is_foreachable(array_var($ticket_data['assignees'], 0))) {
-            $subscribers = array_merge($subscribers, array_var($ticket_data['assignees'], 0));
+          if(is_foreachable(array_var($hability_data['assignees'], 0))) {
+            $subscribers = array_merge($subscribers, array_var($hability_data['assignees'], 0));
           } else {
             $subscribers[] = $this->active_project->getLeaderId();
           } // if
-          Subscriptions::subscribeUsers($subscribers, $this->active_ticket);
+          Subscriptions::subscribeUsers($subscribers, $this->active_hability);
           
           db_commit();
-          $this->active_ticket->ready(); // ready
+          $this->active_hability->ready(); // ready
           
           $this->smarty->assign(array(
-            'ticket_data' => array('visibility' => $this->active_project->getDefaultVisibility()),
-            'active_ticket' => $this->active_ticket,
+            'hability_data' => array('visibility' => $this->active_project->getDefaultVisibility()),
+            'active_hability' => $this->active_hability,
             'project_id' => $this->active_project->getId()
           ));
           $this->skip_layout = true;
@@ -362,7 +362,7 @@
     } // quick_add
     
     /**
-     * Update existing ticket
+     * Update existing hability
      *
      * @param void
      * @return null
@@ -374,47 +374,47 @@
         $this->httpError(HTTP_ERR_BAD_REQUEST);
       } // ifs
       
-      if($this->active_ticket->isNew()) {
+      if($this->active_hability->isNew()) {
         $this->httpError(HTTP_ERR_NOT_FOUND);
       } // if
       
-      if(!$this->active_ticket->canEdit($this->logged_user)) {
+      if(!$this->active_hability->canEdit($this->logged_user)) {
         $this->httpError(HTTP_ERR_FORBIDDEN);
       } // if
       
-      $ticket_data = $this->request->post('ticket');
-      if(!is_array($ticket_data)) {
-        $ticket_data = array(
-          'name' => $this->active_ticket->getName(),
-          'body' => $this->active_ticket->getBody(),
-          'visibility' => $this->active_ticket->getVisibility(),
-          'parent_id' => $this->active_ticket->getParentId(),
-          'milestone_id' => $this->active_ticket->getMilestoneId(),
-          'priority' => $this->active_ticket->getPriority(),
-          'assignees' => Assignments::findAssignmentDataByObject($this->active_ticket),
-          'tags' => $this->active_ticket->getTags(),
-          'due_on' => $this->active_ticket->getDueOn(),
+      $hability_data = $this->request->post('hability');
+      if(!is_array($hability_data)) {
+        $hability_data = array(
+          'name' => $this->active_hability->getName(),
+          'body' => $this->active_hability->getBody(),
+          'visibility' => $this->active_hability->getVisibility(),
+          'parent_id' => $this->active_hability->getParentId(),
+          'milestone_id' => $this->active_hability->getMilestoneId(),
+          'priority' => $this->active_hability->getPriority(),
+          'assignees' => Assignments::findAssignmentDataByObject($this->active_hability),
+          'tags' => $this->active_hability->getTags(),
+          'due_on' => $this->active_hability->getDueOn(),
         );
       } // if
-      $this->smarty->assign('ticket_data', $ticket_data);
+      $this->smarty->assign('hability_data', $hability_data);
       
       if($this->request->isSubmitted()) {
-        if(!isset($ticket_data['assignees'])) {
-          $ticket_data['assignees'] = array(array(), 0);
+        if(!isset($hability_data['assignees'])) {
+          $hability_data['assignees'] = array(array(), 0);
         } // if
         
         db_begin_work();
-        $this->active_ticket->setAttributes($ticket_data);
-        $save = $this->active_ticket->save();
+        $this->active_hability->setAttributes($hability_data);
+        $save = $this->active_hability->save();
         
         if($save && !is_error($save)) {
           db_commit();
           
           if($this->request->getFormat() == FORMAT_HTML) {
-            flash_success('Ticket #:ticket_id has been updated', array('ticket_id' => $this->active_ticket->getTicketId()));
-            $this->redirectToUrl($this->active_ticket->getViewUrl());
+            flash_success('Hability #:hability_id has been updated', array('hability_id' => $this->active_hability->getHabilityId()));
+            $this->redirectToUrl($this->active_hability->getViewUrl());
           } else {
-            $this->serveData($this->active_ticket, 'ticket');
+            $this->serveData($this->active_hability, 'hability');
           } // if
         } else {
           db_rollback();
@@ -429,7 +429,7 @@
     } // edit
     
     /**
-     * Update multiple tickets
+     * Update multiple habilities
      *
      * @param void
      * @return null
@@ -438,34 +438,34 @@
       if($this->request->isSubmitted()) {
         $action = $this->request->post('with_selected');
         if(trim($action) == '') {
-          flash_error('Please select what you want to do with selected tickets');
-          $this->redirectToReferer($this->smarty->get_template_vars('tickets_url'));
+          flash_error('Please select what you want to do with selected habilities');
+          $this->redirectToReferer($this->smarty->get_template_vars('habilities_url'));
         } // if
         
-        $ticket_ids = $this->request->post('tickets');
-        $tickets = Tickets::findByIds($ticket_ids, STATE_VISIBLE, $this->logged_user->getVisibility());
+        $hability_ids = $this->request->post('habilities');
+        $habilities = Habilities::findByIds($hability_ids, STATE_VISIBLE, $this->logged_user->getVisibility());
         
         $updated = 0;
-        if(is_foreachable($tickets)) {
+        if(is_foreachable($habilities)) {
           
-          // Complete selected tickets
+          // Complete selected habilities
           if($action == 'complete') {
-            $message = lang(':count tickets completed');
-            foreach($tickets as $ticket) {
-              if($ticket->isOpen() && $ticket->canChangeCompleteStatus($this->logged_user)) {
-                $complete = $ticket->complete($this->logged_user);
+            $message = lang(':count habilities completed');
+            foreach($habilities as $hability) {
+              if($hability->isOpen() && $hability->canChangeCompleteStatus($this->logged_user)) {
+                $complete = $hability->complete($this->logged_user);
                 if($complete && !is_error($complete)) {
                   $updated++;
                 } // if
               } // if
             } // foreach
             
-          // Open selected tickets
+          // Open selected habilities
           } elseif($action == 'open') {
-            $message = lang(':count tickets opened');
-            foreach($tickets as $ticket) {
-              if($ticket->isCompleted() && $ticket->canChangeCompleteStatus($this->logged_user)) {
-                $open = $ticket->open($this->logged_user);
+            $message = lang(':count habilities opened');
+            foreach($habilities as $hability) {
+              if($hability->isCompleted() && $hability->canChangeCompleteStatus($this->logged_user)) {
+                $open = $hability->open($this->logged_user);
                 if($open && !is_error($open)) {
                   $updated++;
                 } // if
@@ -474,9 +474,9 @@
             
           // Mark object as starred
           } elseif($action == 'star') {
-            $message = lang(':count tickets starred');
-            foreach($tickets as $ticket) {
-              $star = $ticket->star($this->logged_user);
+            $message = lang(':count habilities starred');
+            foreach($habilities as $hability) {
+              $star = $hability->star($this->logged_user);
               if($star && !is_error($star)) {
                 $updated++;
               } // if
@@ -484,9 +484,9 @@
             
           // Unstar objects
           } elseif($action == 'unstar') {
-            $message = lang(':count tickets unstarred');
-            foreach($tickets as $ticket) {
-              $unstar = $ticket->unstar($this->logged_user);
+            $message = lang(':count habilities unstarred');
+            foreach($habilities as $hability) {
+              $unstar = $hability->unstar($this->logged_user);
               if($unstar && !is_error($unstar)) {
                 $updated++;
               } // if
@@ -494,10 +494,10 @@
             
           // Move selected objects to Trash
           } elseif($action == 'trash') {
-            $message = lang(':count tickets moved to Trash');
-            foreach($tickets as $ticket) {
-              if($ticket->canDelete($this->logged_user)) {
-                $delete = $ticket->moveToTrash();
+            $message = lang(':count habilities moved to Trash');
+            foreach($habilities as $hability) {
+              if($hability->canDelete($this->logged_user)) {
+                $delete = $hability->moveToTrash();
                 if($delete && !is_error($delete)) {
                   $updated++;
                 } // if
@@ -507,11 +507,11 @@
           // Set a selected priority
           } elseif(str_starts_with($action, 'set_priority')) {
             $priority = (integer) substr($action, 13);
-            $message = lang(':count tickets updated');
-            foreach($tickets as $ticket) {
-              if($ticket->canEdit($this->logged_user)) {
-                $ticket->setPriority($priority);
-                $save = $ticket->save();
+            $message = lang(':count habilities updated');
+            foreach($habilities as $hability) {
+              if($hability->canEdit($this->logged_user)) {
+                $hability->setPriority($priority);
+                $save = $hability->save();
                 if($save && !is_error($save)) {
                   $updated++;
                 } // if
@@ -521,18 +521,18 @@
           // Set visibility
           } elseif(str_starts_with($action, 'set_visibility')) {
             $visibility = (integer) substr($action, 15);
-            $message = lang(':count tickets updated');
-            foreach($tickets as $ticket) {
-              if($ticket->canEdit($this->logged_user)) {
-                $ticket->setVisibility($visibility);
-                $save = $ticket->save();
+            $message = lang(':count habilities updated');
+            foreach($habilities as $hability) {
+              if($hability->canEdit($this->logged_user)) {
+                $hability->setVisibility($visibility);
+                $save = $hability->save();
                 if($save && !is_error($save)) {
                   $updated++;
                 } // if
               } // if
             } // foreach
             
-          // Move this ticket to a given milestone
+          // Move this hability to a given milestone
           } elseif(str_starts_with($action, 'move_to_milestone')) {
             if($action == 'move_to_milestone') {
               $milestone_id = null;
@@ -540,18 +540,18 @@
               $milestone_id = (integer) substr($action, 18);
             } // if
             
-            $message = lang(':count tickets updated');
-            foreach($tickets as $ticket) {
-              if($ticket->canEdit($this->logged_user)) {
-                $ticket->setMilestoneId($milestone_id);
-                $save = $ticket->save();
+            $message = lang(':count habilities updated');
+            foreach($habilities as $hability) {
+              if($hability->canEdit($this->logged_user)) {
+                $hability->setMilestoneId($milestone_id);
+                $save = $hability->save();
                 if($save && !is_error($save)) {
                   $updated++;
                 } // if
               } // if
             } // foreach
             
-          // Move selected tickets to selected category
+          // Move selected habilities to selected category
           } elseif(str_starts_with($action, 'move_to_category')) {
             if($action == 'move_to_category') {
               $category_id = null;
@@ -561,11 +561,11 @@
             
             $category = $category_id ? Categories::findById($category_id) : null;
             
-            $message = lang(':count tickets updated');
-            foreach($tickets as $ticket) {
-              if($ticket->canEdit($this->logged_user)) {
-                $ticket->setParent($category, false);
-                $save = $ticket->save();
+            $message = lang(':count habilities updated');
+            foreach($habilities as $hability) {
+              if($hability->canEdit($this->logged_user)) {
+                $hability->setParent($category, false);
+                $save = $hability->save();
                 if($save && !is_error($save)) {
                   $updated++;
                 } // if
@@ -577,10 +577,10 @@
           } // if
           
           flash_success($message, array('count' => $updated));
-          $this->redirectToReferer($this->smarty->get_template_vars('tickets_url'));
+          $this->redirectToReferer($this->smarty->get_template_vars('habilities_url'));
         } else {
-          flash_error('Please select tickets that you would like to update');
-          $this->redirectToReferer($this->smarty->get_template_vars('tickets_url'));
+          flash_error('Please select habilities that you would like to update');
+          $this->redirectToReferer($this->smarty->get_template_vars('habilities_url'));
         } // if
       } else {
         $this->httpError(HTTP_ERR_BAD_REQUEST);
@@ -588,27 +588,27 @@
     } // mass_update
     
     /**
-     * Show ticket changes
+     * Show hability changes
      *
      * @param void
      * @return null
      */
     function changes() {
-      if($this->active_ticket->isNew()) {
+      if($this->active_hability->isNew()) {
         $this->httpError(HTTP_ERR_NOT_FOUND);
       } // if
       
-      if(!$this->active_ticket->canView($this->logged_user)) {
+      if(!$this->active_hability->canView($this->logged_user)) {
         $this->httpError(HTTP_ERR_FORBIDDEN);
       } // if
       
       $this->skip_layout = $this->request->isApiCall() || $this->request->isAsyncCall();
       
-      $this->smarty->assign('changes', $this->active_ticket->getChanges());
+      $this->smarty->assign('changes', $this->active_hability->getChanges());
     } // changes
     
     /**
-     * Export tickets
+     * Export habilities
      *
      * @param void
      * @return null
@@ -629,31 +629,31 @@
       $output_builder->createAttachmentsFolder();
       
       $module_categories = Categories::findByModuleSection($this->active_project, $this->active_module, $this->active_module);
-      $module_objects = Tickets::findByProject($this->active_project, null , STATE_VISIBLE, $object_visibility);
+      $module_objects = Habilities::findByProject($this->active_project, null , STATE_VISIBLE, $object_visibility);
 
       $output_builder->setFileTemplate($this->active_module, $this->controller_name, 'index');
       $output_builder->smarty->assign('categories',$module_categories);
       $output_builder->smarty->assign('objects', $module_objects);
       $output_builder->outputToFile('index');
                  
-      // export tickets by categories
+      // export habilities by categories
       if (is_foreachable($module_categories)) {
         foreach ($module_categories as $module_category) {
           if (instance_of($module_category,'Category')) {
             $output_builder->smarty->assign(array(
               'current_category' => $module_category,
-              'objects' => Tickets::findByProject($this->active_project, $module_category, STATE_VISIBLE, $object_visibility),
+              'objects' => Habilities::findByProject($this->active_project, $module_category, STATE_VISIBLE, $object_visibility),
             ));
             $output_builder->outputToFile('category_'.$module_category->getId());
           } // if
         } // foreach
       } // if
       
-      // export tickets
+      // export habilities
       if (is_foreachable($module_objects)) {
         $output_builder->setFileTemplate($this->active_module, $this->controller_name, 'object');
         foreach ($module_objects as $module_object) {
-          if (instance_of($module_object,'Ticket')) {
+          if (instance_of($module_object,'Hability')) {
             $output_builder->outputAttachments($module_object->getAttachments());
             
             $comments = $module_object->getComments($object_visibility);
@@ -673,7 +673,7 @@
             	'object' => $module_object,
             	'comments' => $comments,
             ));
-            $output_builder->outputToFile('ticket_'.$module_object->getId());
+            $output_builder->outputToFile('hability_'.$module_object->getId());
           } // if
         } // foreach
       } // if
@@ -687,7 +687,7 @@
      * @param void
      * @return null
      */
-    function reorder_tickets() {
+    function reorder_habilities() {
       $this->wireframe->print_button = false;
       
       $milestone = Milestones::findById($this->request->get('milestone_id'));
@@ -701,11 +701,11 @@
         $this->httpError(HTTP_ERR_BAD_REQUEST, null, true, true);
       } // if
       
-      if (!Ticket::canManage($this->logged_user, $this->active_project)) {
+      if (!Hability::canManage($this->logged_user, $this->active_project)) {
         $this->httpError(HTTP_ERR_FORBIDDEN, null, true, true);
       } // if     
       
-      $order_data = $this->request->post('reorder_ticket');
+      $order_data = $this->request->post('reorder_hability');
       $ids = array_keys($order_data);
       if (is_foreachable($order_data)) {
       	$x = 1;
@@ -715,17 +715,17 @@
         } // foreach
       } // if
       
-      $tickets = Tickets::findByIds($ids, STATE_VISIBLE, $this->logged_user->getVisibility());
-      if (is_foreachable($tickets)) {
-        foreach ($tickets as $ticket) {
-          $ticket->setMilestoneId($milestone_id);
-          $ticket->setPosition(array_var($order_data, $ticket->getId()));
-          $ticket->save();
+      $habilities = Habilities::findByIds($ids, STATE_VISIBLE, $this->logged_user->getVisibility());
+      if (is_foreachable($habilities)) {
+        foreach ($habilities as $hability) {
+          $hability->setMilestoneId($milestone_id);
+          $hability->setPosition(array_var($order_data, $hability->getId()));
+          $hability->save();
         } // foreach
       } // if
       $this->httpOk();
     } // reorder
   
-  } // TicketsController
+  } // HabilitiesController
 
 ?>

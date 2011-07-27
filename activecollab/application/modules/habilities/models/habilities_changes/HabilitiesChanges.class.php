@@ -6,7 +6,7 @@
    * @package activeCollab.modules.tickets
    * @subpackage models
    */
-  class TicketChanges {
+  class HabilityChanges {
     
     /**
      * Return array of ticket changes
@@ -15,21 +15,21 @@
      * @param integer $count
      * @return array
      */
-    function findByTicket($ticket, $count = null) {
+    function findByHability($hability, $count = null) {
       $count = (integer) $count;
       
       if($count < 1) {
-        $rows = db_execute_all('SELECT * FROM ' . TABLE_PREFIX . 'ticket_changes WHERE ticket_id = ? ORDER BY version DESC', $ticket->getId());
+        $rows = db_execute_all('SELECT * FROM ' . TABLE_PREFIX . 'habilities WHERE hability_id = ? ORDER BY version DESC', $hability->getId());
       } else {
-        $rows = db_execute_all('SELECT * FROM ' . TABLE_PREFIX . "ticket_changes WHERE ticket_id = ? ORDER BY version DESC LIMIT 0, $count", $ticket->getId());
+        $rows = db_execute_all('SELECT * FROM ' . TABLE_PREFIX . "habilities WHERE hability_id = ? ORDER BY version DESC LIMIT 0, $count", $hability->getId());
       } // if
       
       if(is_foreachable($rows)) {
         $changes = array();
         foreach($rows as $row) {
-          $change = new TicketChange();
+          $change = new HabilityChange();
           
-          $change->setTicketId($ticket->getId());
+          $change->setHabilityId($hability->getId());
           $change->setVersion($row['version']);
           $change->changes = unserialize($row['changes']);
           $change->created_on = $row['created_on'] ? new DateTimeValue($row['created_on']) : null;
@@ -43,18 +43,18 @@
       } else {
         return null;
       } // if
-    } // findByTicket
+    } // findByHability
     
     /**
-     * Return total number of changes recorded for a specific ticket
+     * Return total number of changes recorded for a specific hability
      *
-     * @param Ticket $ticket
+     * @param Hability $hability
      * @return integer
      */
-    function countByTicket($ticket) {
-      return (integer) array_var(db_execute_one("SELECT COUNT(id) AS 'row_count' FROM " . TABLE_PREFIX . 'ticket_changes WHERE ticket_id = ?', $ticket->getId()), 'row_count');
-    } // countByTicket
+    function countByHability($hability) {
+      return (integer) array_var(db_execute_one("SELECT COUNT(id) AS 'row_count' FROM " . TABLE_PREFIX . 'habilities WHERE hability_id = ?', $hability->getId()), 'row_count');
+    } // countByHability
     
-  } // TicketChanges
+  } // HabilityChanges
 
 ?>

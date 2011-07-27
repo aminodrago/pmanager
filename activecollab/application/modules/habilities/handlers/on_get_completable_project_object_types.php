@@ -1,20 +1,20 @@
 <?php
 
   /**
-   * Tickets module on_get_completable_project_object_types events handler
+   * Habilities module on_get_completable_project_object_types events handler
    *
-   * @package activeCollab.modules.tickets
+   * @package activeCollab.modules.habilities
    * @subpackage handlers
    */
   
   /**
-   * Return completable tickets module types
+   * Return completable habilities module types
    *
    * @param void
    * @return string
    */
-  function tickets_handle_on_get_completable_project_object_types() {
-    return 'ticket';
-  } // tickets_handle_on_get_completable_project_object_types
+  function habilities_handle_on_get_completable_project_object_types() {
+    return 'hability';
+  } // habilities_handle_on_get_completable_project_object_types
 
 ?>
