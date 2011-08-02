@@ -3,7 +3,7 @@
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
-define('ROOT', '/var/www/pmanager/activecollab');
+define('ROOT', '/var/www/pman/activecollab');
 define('PUBLIC_FOLDER_NAME', 'public');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
@@ -12,7 +12,7 @@ define('DB_NAME', 'pmanager');
 define('DB_CAN_TRANSACT', true);
 define('TABLE_PREFIX', 'acx_');
 
-define('ROOT_URL', 'http://10.10.10.148/pmanager');
+define('ROOT_URL', 'http://10.10.10.100/pman');
 define('URL_BASE', ROOT_URL . '/');
 define('ASSETS_URL', ROOT_URL . '/public/assets');
 
