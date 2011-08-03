@@ -92,7 +92,7 @@
       $storage_engine = defined('DB_CAN_TRANSACT') && DB_CAN_TRANSACT ? 'ENGINE=InnoDB' : '';
       $default_charset = defined('DB_CHARSET') && (DB_CHARSET == 'utf8') ? 'DEFAULT CHARSET=utf8' : '';
 			
-			db_execute("CREATE TABLE " . TABLE_PREFIX . "hability (
+			db_execute("CREATE TABLE IF NOT EXISTS " . TABLE_PREFIX . "hability (
 				hability_id int(11) NOT NULL AUTO_INCREMENT,
 				hability_name varchar(100) NOT NULL,
 				hability_order tinyint(2) NOT NULL,

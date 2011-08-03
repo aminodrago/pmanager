@@ -243,7 +243,7 @@
      * @var array
      */
     var $options = array();
-    
+		
     /**
      * Return array of this $user can do to this user account
      *
@@ -260,6 +260,13 @@
             'url'  => $this->getEditCompanyAndRoleUrl(),
           ));
         } // if
+        
+        if ($this->canManageHabilities($user)) {
+        	$options->add('manage_habilities', array(
+            'text' => lang('Habilities'),
+            'url'  => $this->getManageHabilitiesUrl(),
+          ));
+        }
         
       	if($this->canEdit($user)) {
           $options->add('edit_profile', array(
@@ -905,6 +912,20 @@
      */
     function canChangeRole($user) {
     	return $user->isAdministrator() || $user->isPeopleManager();
+    } // canChangeRole
+    
+    /**
+     * Returns true if $user can manange own habilities
+     *
+     * @param User $user
+     * @return boolean
+     */
+    function canManageHabilities($user) {
+    	f($user->getId() == $this->getId()) {
+        return true; // user can change his own account
+      } // if
+      
+      return $user->isCompanyManager($this->getCompany());
     } // canChangeRole
     
     /**

@@ -1,7 +1,7 @@
 <?php
 
   /**
-   * Ticket changes manager class
+   * Hability changes manager class
    *
    * @package activeCollab.modules.tickets
    * @subpackage models

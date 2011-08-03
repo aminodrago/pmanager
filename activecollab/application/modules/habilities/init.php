@@ -11,11 +11,11 @@
   
   set_for_autoload(array(
     'Hability' => HABILITIES_MODULE_PATH . '/models/habilities/Hability.class.php',
-    'Habilities' => HABILITIES_MODULE_PATH . '/models/habilities/Hability.class.php',
+    'Habilities' => HABILITIES_MODULE_PATH . '/models/habilities/Habilities.class.php',
     'HabilityChange' => HABILITIES_MODULE_PATH . '/models/hability_changes/HabilityChange.class.php',
     'HabilityChanges' => HABILITIES_MODULE_PATH . '/models/hability_changes/HabilityChanges.class.php'
   ));
-  
+	
   /**
    * Return section URL
    *

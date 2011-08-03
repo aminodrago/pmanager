@@ -4,7 +4,7 @@
   use_controller('project', SYSTEM_MODULE);
 
   /**
-   * Tickets controller
+   * Habilities controller
    *
    * @package activeCollab.modules.habilities
    * @subpackage controllers
@@ -108,7 +108,7 @@
       } else {
         if($this->active_category->isLoaded()) {
           $habilities = Milestones::groupByMilestone(
-            Tickets::findOpenByCategory($this->active_category, STATE_VISIBLE, $this->logged_user->getVisibility()), 
+            Habilities::findOpenByCategory($this->active_category, STATE_VISIBLE, $this->logged_user->getVisibility()), 
             STATE_VISIBLE, $this->logged_user->getVisibility()
           );
         } else {

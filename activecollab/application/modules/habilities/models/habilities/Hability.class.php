@@ -1,26 +1,26 @@
 <?php
 
   /**
-   * Ticket record class
+   * Hability record class
    *
-   * @package activeCollab.modules.tickets
+   * @package activeCollab.modules.habilities
    * @subpackage models
    */
-  class Ticket extends ProjectObject {
+  class Hability extends ProjectObject {
     
     /**
      * Project tab
      *
      * @var string
      */
-    var $project_tab = 'tickets';
+    var $project_tab = 'habilities';
     
     /**
      * Permission name
      * 
      * @var string
      */
-    var $permission_name = 'ticket';
+    var $permission_name = 'hability';
     
     /**
      * Define fields used by this project object
@@ -36,7 +36,7 @@
       'created_on', 'created_by_id', 'created_by_name', 'created_by_email',
       'updated_on', 'updated_by_id', 
       'completed_on', 'completed_by_id', 'completed_by_name', 'completed_by_email',
-      'integer_field_1', // for ticket ID (on project level)
+      'integer_field_1', // for hability ID (on project level)
       'has_time', 'position', 'version'
     );
     
@@ -46,7 +46,7 @@
      * @var array
      */
     var $field_map = array(
-      'ticket_id' => 'integer_field_1'
+      'hability_id' => 'integer_field_1'
     );
     
     /**
@@ -71,32 +71,32 @@
     var $can_have_assignees = true;
     
     /**
-     * Tickets can have subscribers
+     * Habilities can have subscribers
      *
      * @var boolean
      */
-    var $can_have_subscribers = true;
+    var $can_have_subscribers = false;
     
     /**
-     * Tickets can have subtasks
+     * Habilities can have subtasks
      *
      * @var boolean
      */
-    var $can_have_tasks = true;
+    var $can_have_tasks = false;
     
     /**
-     * Tickets can have attachments
+     * Habilities can have attachments
      *
      * @var boolean
      */
-    var $can_have_attachments = true;
+    var $can_have_attachments = false;
     
     /**
-     * Tickets can use reminders
+     * Habilities can use reminders
      *
      * @var boolean
      */
-    var $can_send_reminders = true;
+    var $can_send_reminders = false;
     
     /**
      * Is this object completable
@@ -106,84 +106,84 @@
     var $can_be_completed = true;
     
     /**
-     * Tickets are taggable
+     * Habilities are taggable
      *
      * @var boolean
      */
     var $can_be_tagged = true;
     
     /**
-     * Tickets can be copied
+     * Habilities can be copied
      *
      * @var boolean
      */
     var $can_be_copied = true;
     
     /**
-     * Tickets can be moved
+     * Habilities can be moved
      *
      * @var boolean
      */
     var $can_be_moved = true;
     
     /**
-     * Construct a new ticket
+     * Construct a new hability
      *
      * @param mixed $id
-     * @return Ticket
+     * @return Hability
      */
     function __construct($id = null) {
-      $this->setModule(TICKETS_MODULE);
+      $this->setModule(HABILITIES_MODULE);
       parent::__construct($id);
     } // __construct
     
     /**
-     * Cached ticket changes
+     * Cached hability changes
      * 
      * @var array
      */
     var $changes = false;
     
     /**
-     * Return ticket changes
+     * Return hability changes
      *
      * @param integer $count
      * @return array
      */
     function getChanges($count = null) {
       if($count !== null) {
-        return TicketChanges::findByTicket($this, $count);
+        return Habilityhanges::findByHability($this, $count);
       } // if
       
       // All!
       if($this->changes === false) {
-        $this->changes = TicketChanges::findByTicket($this);
+        $this->changes = HabilityChanges::findByHability($this);
       } // if
       return $this->changes;
     } // getChanges
     
     /**
-     * Cached number of ticket changes
+     * Cached number of hability changes
      *
      * @var integer
      */
     var $changes_count = false;
     
     /**
-     * Return number of ticket changes
+     * Return number of hability changes
      *
      * @param void
      * @return integer
      */
     function countChanges() {
       if($this->changes_count === false) {
-        $this->changes_count = TicketChanges::countByTicket($this);
+        $this->changes_count = HabilityChanges::countByHability($this);
       } // if
       return $this->changes_count;
     } // countChanges
     
     /**
-     * Describe ticket
+     * Describe hability
      *
      * @param User $user
      * @param array $additional
@@ -199,7 +199,7 @@
         'describe_attachments' => array_var($additional, 'describe_attachments'), 
         'describe_assignees'   => array_var($additional, 'describe_assignees'), 
       ));
-      $result['ticket_id'] = $this->getTicketId();
+      $result['hability_id'] = $this->getHabilityId();
       return $result;
     } // describe
     
@@ -211,7 +211,7 @@
      * @return null
      */
     function prepareProjectSectionBreadcrumb(&$wireframe) {
-      $wireframe->addBreadCrumb(lang('Tickets'), assemble_url('project_tickets', array('project_id' => $this->getProjectId())));
+      $wireframe->addBreadCrumb(lang('Habilities'), assemble_url('project_habilities', array('project_id' => $this->getProjectId())));
     } // prepareProjectSectionBreadcrumb
     
     /**
@@ -223,7 +223,7 @@
      * @return null
      */
     function preparePortalProjectSectionBreadcrumb($portal, &$wireframe) {
-    	$wireframe->addBreadCrumb(lang('Tickets'), assemble_url('portal_tickets', array('portal_name' => $portal->getSlug())));
+    	$wireframe->addBreadCrumb(lang('Habilities'), assemble_url('portal_habilities', array('portal_name' => $portal->getSlug())));
     } // preparePortalProjectSectionBreadcrumb
     
     // ---------------------------------------------------
@@ -231,35 +231,35 @@
     // ---------------------------------------------------
     
     /**
-     * Returns true if $user can create a new ticket in $project
+     * Returns true if $user can create a new hability in $project
      *
      * @param User $user
      * @param Project $project
      * @return boolean
      */
     function canAdd($user, $project) {
-      return ProjectObject::canAdd($user, $project, 'ticket');
+      return ProjectObject::canAdd($user, $project, 'hability');
     } // canAdd
     
     /**
-     * Returns true if tickets can be created through portal
+     * Returns true if habilities can be created through portal
      *
      * @param Portal $portal
      * @return boolean
      */
     function canAddViaPortal($portal) {
-    	return parent::canAddViaPortal($portal, 'ticket');
+    	return parent::canAddViaPortal($portal, 'hability');
     } // canAddViaPortal
     
     /**
-     * Returns true if $user can manage tickets in $project
+     * Returns true if $user can manage habilities in $project
      *
      * @param User $user
      * @param Project $project
      * @return boolean
      */
     function canManage($user, $project) {
-      return ProjectObject::canManage($user, $project, 'ticket');
+      return ProjectObject::canManage($user, $project, 'hability');
     } // canManage
     
     // ---------------------------------------------------
@@ -267,31 +267,31 @@
     // ---------------------------------------------------
     
     /**
-     * Get ticket_id
+     * Get hability_id
      *
      * @param null
      * @return integer
      */
-    function getTicketId() {
+    function getHabilityId() {
       return $this->getIntegerField1();
-    } // getTicketId
+    } // getHabilityId
     
     /**
-     * Set ticket_id value
+     * Set hability_id value
      *
      * @param integer $value
      * @return null
      */
-    function setTicketId($value) {
+    function setHabilityId($value) {
       return $this->setIntegerField1($value);
-    } // setTicketId
+    } // setHabilityId
     
     // ---------------------------------------------------
     //  URL-s
     // ---------------------------------------------------
     
     /**
-     * Return view ticket URL
+     * Return view hability URL
      *
      * @param integer $page
      * @return string
@@ -299,18 +299,18 @@
     function getViewUrl($page = null) {
       $params = array(
         'project_id' => $this->getProjectId(),
-        'ticket_id' => $this->getTicketId(),
+        'hability_id' => $this->getHabilityId(),
       );
       
       if($page) {
         $params['page'] = $page;
       } // if
       
-      return assemble_url('project_ticket', $params);
+      return assemble_url('project_hability', $params);
     } // getViewUrl
     
     /**
-     * Return portal view ticket URL
+     * Return portal view hability URL
      *
      * @param Portal $portal
      * @param integer $page
@@ -319,14 +319,14 @@
     function getPortalViewUrl($portal, $page = null) {
     	$params = array(
     		'portal_name' => $portal->getSlug(),
-    		'ticket_id'   => $this->getTicketId()
+    		'hability_id'   => $this->getHabilityId()
     	);
     	
     	if($page) {
     		$params['page'] = $page;
     	} // if
     	
-    	return assemble_url('portal_ticket', $params);
+    	return assemble_url('portal_hability', $params);
     } // getPortalViewUrl
     
     /**
@@ -336,35 +336,35 @@
      * @return string
      */
     function getEditUrl() {
-      return assemble_url('project_ticket_edit', array(
+      return assemble_url('project_hability_edit', array(
         'project_id' => $this->getProjectId(),
-        'ticket_id' => $this->getTicketId(),
+        'hability_id' => $this->getHabilityId(),
       ));
     } // getEditUrl
     
     /**
-     * Return ticket changes URL
+     * Return hability changes URL
      *
      * @param void
      * @return string
      */
     function getChangesUrl() {
-      return assemble_url('project_ticket_changes', array(
+      return assemble_url('project_hability_changes', array(
         'project_id' => $this->getProjectId(),
-        'ticket_id' => $this->getTicketId(),
+        'hability_id' => $this->getHabilityId(),
       ));
     } // getChangesUrl
     
     /**
-     * Return portal ticket changes URL
+     * Return portal hability changes URL
      *
      * @param Portal $portal
      * @return string
      */
     function getPortalChangesUrl($portal) {
-    	return assemble_url('portal_ticket_changes', array(
+    	return assemble_url('portal_hability_changes', array(
     		'portal_name' => $portal->getSlug(),
-    		'ticket_id'   =>$this->getTicketId()
+    		'hability_id'   =>$this->getHabilityId()
     	));
     } // getPortalChangesUrl
     
@@ -380,7 +380,7 @@
      */
     function validate(&$errors) {
       if(!$this->validatePresenceOf('name', 3)) {
-        $errors->addError(lang('Ticket summary should be at least 3 characters long'), 'name');
+        $errors->addError(lang('Hability summary should be at least 3 characters long'), 'name');
       } // if
       
       parent::validate($errors, true);
@@ -393,16 +393,16 @@
      */
     function save() {
       if($this->isNew()) {
-        $this->setTicketId(Tickets::findNextTicketIdByProject($this->getProjectId()));
+        $this->setHabilityId(Habilities::findNextHabilityIdByProject($this->getProjectId()));
       } // if
       
       $changes = null;
       if($this->isLoaded()) {
         $log_fields = array('project_id', 'milestone_id', 'parent_id', 'name', 'body', 'priority', 'due_on', 'completed_on');
         
-        $changes = new TicketChange();
+        $changes = new HabilityChange();
         
-        $changes->setTicketId($this->getId());
+        $changes->setHabilityId($this->getId());
         $changes->setVersion($this->getVersion());
         $changes->setCreatedOn(DateTimeValue::now());
         $changes->setCreatedBy(get_logged_user());
@@ -446,7 +446,7 @@
       
       $save = parent::save();
       if($save && !is_error($save)) {
-        if(instance_of($changes, 'TicketChange') && count($changes->changes)) {
+        if(instance_of($changes, 'HabilityChange') && count($changes->changes)) {
           $this->changes = false;
           $changes->save();
         } // if
@@ -455,6 +455,6 @@
       return $save;
     } // save
   
-  } // Ticket
+  } // Hability
 
 ?>

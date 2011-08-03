@@ -1,12 +1,12 @@
 <?php
 
   /**
-   * Single ticket change
+   * Single hability change
    *
-   * @package activeCollab.modules.tickets
+   * @package activeCollab.modules.habilities
    * @subpackage models
    */
-  class TicketChange extends AngieObject {
+  class HabilityChange extends AngieObject {
     
     /**
      * Parent ticket ID
