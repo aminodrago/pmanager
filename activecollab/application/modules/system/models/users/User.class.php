@@ -921,7 +921,7 @@
      * @return boolean
      */
     function canManageHabilities($user) {
-    	f($user->getId() == $this->getId()) {
+    	if($user->getId() == $this->getId()) {
         return true; // user can change his own account
       } // if
       
@@ -1061,6 +1061,19 @@
       ));
     } // getEditProfileUrl
     
+		/**
+     * Get edit user settings URL
+     *
+     * @param void
+     * @return string
+     */
+    function getManageHabilitiesUrl() {
+      return assemble_url('people_company_user_edit_habilities', array(
+        'company_id' => $this->getCompanyId(),
+        'user_id'    => $this->getId(),
+      ));
+    } // getManageHabilitiesUrl
+		
     /**
      * Get edit user settings URL
      *
