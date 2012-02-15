@@ -261,17 +261,22 @@
           ));
         } // if
         
-        if ($this->canManageHabilities($user)) {
+        /*if ($this->canManageHabilities($user)) {
         	$options->add('manage_habilities', array(
             'text' => lang('Habilities'),
             'url'  => $this->getManageHabilitiesUrl(),
           ));
-        }
+        }*/
         
       	if($this->canEdit($user)) {
           $options->add('edit_profile', array(
             'text' => lang('Update Profile'),
             'url'  => $this->getEditProfileUrl(),
+          ));
+					
+					$options->add('edit_habilities', array(
+            'text' => lang('Edit Habilities'),
+            'url'  => $this->getEditHabilitiesUrl(),
           ));
           
           $options->add('edit_settings', array(
@@ -353,7 +358,12 @@
             'text' => lang('Update Profile'),
             'url'  => $this->getEditProfileUrl(),
           ));
-          
+					
+					$options->add('edit_settings', array(
+            'text' => lang('Edit Habilities'),
+            'url'  => $this->getEditHabilitiesUrl(),
+          ));
+					
           $options->add('edit_settings', array(
             'text' => lang('Change Settings'),
             'url'  => $this->getEditSettingsUrl(),
@@ -1067,7 +1077,7 @@
      * @param void
      * @return string
      */
-    function getManageHabilitiesUrl() {
+    function getEditHabilitiesUrl() {
       return assemble_url('people_company_user_edit_habilities', array(
         'company_id' => $this->getCompanyId(),
         'user_id'    => $this->getId(),

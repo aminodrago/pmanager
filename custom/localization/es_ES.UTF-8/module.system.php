@@ -390,6 +390,7 @@
   'Update password' => 'Actualizar contraseña',
   'Repeat password' => 'Repetir contraseña',
   'Update Profile' => 'Actualizar perfil',
+  'Edit Habilities' => 'Editar habilidades',
   'Office Phone Number' => 'Teléfono de la oficina',
   'Mobile Phone Number' => 'Teléfono móvil',
   'Instant Messenger' => 'Mensajería instantánea',

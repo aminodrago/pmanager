@@ -353,6 +353,35 @@
       } // if
     } // edit_profile
     
+    function edit_habilities() {
+    	$this->wireframe->print_button = false;
+			
+			if($this->active_user->isNew()) {
+        $this->httpError(HTTP_ERR_NOT_FOUND);
+      } // if
+      
+      if(!$this->active_user->canEdit($this->logged_user)) {
+        $this->httpError(HTTP_ERR_FORBIDDEN);
+      } // if
+			
+			if (isset($_POST) && count($_POST)) {
+				$habilities = db_execute('INSERT INTO ' . TABLE_PREFIX . 'hability (hability_name, hability_percent, hability_user) VALUES (?, ?, ?)', $_POST['hability'], $_POST['percent'], $this->active_user->getId());
+			}
+			
+			$habilities = db_execute('SELECT * FROM ' . TABLE_PREFIX . 'hability WHERE hability_user = ? ORDER BY hability_name', $this->active_user->getId());
+			
+			$list = '';
+			foreach ($habilities as $row) {
+				$list .= '<br />' . $row['hability_name'] . ' (' . $row['hability_percent'] . '%)';
+			}
+			
+			$this->smarty->assign(array(
+				'a_list' => $list
+			));
+			
+			return;
+    }
+    
     /**
      * Show and process edit settings page
      *

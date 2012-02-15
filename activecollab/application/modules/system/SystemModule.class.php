@@ -92,6 +92,7 @@
       $router->map('people_company_user_add', 'people/:company_id/add-user', array('controller' => 'users', 'action' => 'add'), array('company_id' => '\d+'));
       $router->map('people_company_user_edit', 'people/:company_id/users/:user_id/edit', array('controller' => 'users', 'action' => 'edit'), array('company_id' => '\d+', 'user_id' => '\d+'));
       $router->map('people_company_user_edit_profile', 'people/:company_id/users/:user_id/edit-profile', array('controller' => 'users', 'action' => 'edit_profile'), array('company_id' => '\d+', 'user_id' => '\d+'));
+      $router->map('people_company_user_edit_habilities', 'people/:company_id/users/:user_id/edit-habilities', array('controller' => 'users', 'action' => 'edit_habilities'), array('company_id' => '\d+', 'user_id' => '\d+'));
       $router->map('people_company_user_edit_settings', 'people/:company_id/users/:user_id/edit-settings', array('controller' => 'users', 'action' => 'edit_settings'), array('company_id' => '\d+', 'user_id' => '\d+'));
       $router->map('people_company_user_edit_company_and_role', 'people/:company_id/users/:user_id/edit-company-and-role', array('controller' => 'users', 'action' => 'edit_company_and_role'), array('company_id' => '\d+', 'user_id' => '\d+'));
       $router->map('people_company_user_delete', 'people/:company_id/users/:user_id/delete', array('controller' => 'users', 'action' => 'delete'), array('company_id' => '\d+', 'user_id' => '\d+'));
