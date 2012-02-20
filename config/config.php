@@ -3,12 +3,12 @@
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
-define('ROOT', '/var/www/ac/activecollab');
+define('ROOT', '/var/www/localhost/ac/activecollab');
 define('PUBLIC_FOLDER_NAME', 'public');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'ac');
+define('DB_PASS', '8i8o11ag');
+define('DB_NAME', 'pmanager');
 define('DB_CAN_TRANSACT', true);
 define('TABLE_PREFIX', 'acx_');
 
@@ -25,6 +25,9 @@ define('DEBUG', 2);
 define('API_STATUS', 1);
 define('PROTECT_SCHEDULED_TASKS', true);
 define('DB_CHARSET', 'utf8');
+
+define('CHARTS_OUTPUT_IMG_DIR', ROOT . '/../images/cache');
+define('CHARTS_OUTPUT_IMG_URL', ROOT_URL . '/images/cache');
 
 require_once 'defaults.php';
 
