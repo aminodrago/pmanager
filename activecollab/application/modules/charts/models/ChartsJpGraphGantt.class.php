@@ -1,94 +1,91 @@
 <?php
 
-  class ChartsJpGraphGantt {
-  
-    private $use_ttf_fonts = false;
-  
-    /**
-     * Constructor
-     *
-     * @param Request $request
-     * @return FilesController
-     */
-    function __construct($request) {
-      #parent::__construct($request);
-
-      // Find out if we should use the fonts
-      if (file_exists(CHARTS_TTF_DIR))  $this->use_ttf_fonts = true;
-
-    } // __construct
-    
-    /**
-     * Show index page
-     *
-     * @param void
-     * @return null
-     */
-    function make_gantt(&$charts_data,$project,$set_date_extents) {
-
-	// Limit string length on bar title
-	$lengthlimit = 45;
-	$graphwidth = 900;
-
-	// Create a default chart
-	include_once(CHARTS_MODULE_PATH . "/helpers/jpgraph/jpgraph.php");
-	include_once(CHARTS_MODULE_PATH . "/helpers/jpgraph/jpgraph_gantt.php");
-
-	// New auto-height Gantt, to fit within aC
-	$graph = new GanttGraph($graphwidth);
-
-	// Get the date range from user input
-	$graph->SetDateRange($charts_data['start_on'],$charts_data['end_on']);
-        $graph->SetFrame(true,'#cccccc',1); 
-
-	// Scale months and years
-	$graph->scale->month->SetStyle(MONTHSTYLE_SHORTNAMEYEAR4);
-	$graph->scale->month->SetFontColor("#555555");
-	$graph->scale->month->SetBackgroundColor("#d6d3a4");
-	// Setup a horizontal grid
-
-	if ($charts_data['showhgrid']) {
-	  $graph->hgrid->Show();
-	  $graph->hgrid->SetRowFillColor('#000000@0.95');
+class ChartsJpGraphGantt {
+	private $use_ttf_fonts = false;
+	
+	/**
+   * Constructor
+   *
+   * @param Request $request
+   * @return FilesController
+   */
+  function __construct($request) {
+  	#parent::__construct($request);
+  	
+  	// Find out if we should use the fonts
+  	if (file_exists(CHARTS_TTF_DIR))  $this->use_ttf_fonts = true;
 	}
-
-	// Some styling
-	// $graph->SetShadow();
-	$graph->SetMarginColor('#fbfbfb');
-	$graph->SetBox(true, "#555555",1);
-	$graph->SetBackgroundGradient('#fcfcfc','#e0e0e0',GRAD_HOR,BGRAD_MARGIN); 
-	$graph->SetMargin(20,20,20,27);
-
-	// Set titles and some fonts to make it prettier
-	$graph->title->Set($project->active_project->getName());
-	if ($this->use_ttf_fonts) $graph->title->SetFont(FF_VERDANA,FS_BOLD,12);
-	$graph->subtitle->Set("Project Overview");
-	if ($this->use_ttf_fonts) $graph->subtitle->SetFont(FF_VERDANA,FS_NORMAL,10);
-
-	$graph->ShowHeaders(GANTT_HDAY | GANTT_HWEEK | GANTT_HMONTH);
-	//$graph->scale->week->SetStyle(WEEKSTYLE_FIRSTDAY);
-
-	// Add line for today
-	// Setup a vertical marker line
-	if ($charts_data['showtoday']) {
-	$vline = new GanttVLine(strftime('%Y-%m-%d', time()));
-	$vline->SetDayOffset(0.5);
-	$vline->title->Set("Today");
-	if ($this->use_ttf_fonts)  $vline->title->SetFont(FF_FONT1,FS_BOLD,10);
-	$graph->Add($vline);
-	}
-
-	// Get Milestones from project, if enabled!
-	$milestones = Milestones::findByProject($project->active_project, $project->logged_user);
-	if (count($milestones) > 0) {
-
-	  // JpGraph is ready, now lets cycle through milestones, finding tasks
-          $date_lo=99999999;
-          $date_hi=00000000;
-	  $bar = -1;
-	  foreach ($milestones as $milestone) {
-        	$ms_task_count=0;
-        	$ms_complete_task_count=0;
+	
+	/**
+   * Show index page
+   *
+   * @param void
+   * @return null
+   */
+  function make_gantt(&$charts_data,$project,$set_date_extents) {
+  	// Limit string length on bar title
+  	$lengthlimit = 45;
+		$graphwidth = 900;
+		
+		// Create a default chart
+		require_once(CHARTS_MODULE_PATH . "/helpers/jpgraph/jpgraph.php");
+		require_once(CHARTS_MODULE_PATH . "/helpers/jpgraph/jpgraph_gantt.php");
+		
+		// New auto-height Gantt, to fit within aC
+		$graph = new GanttGraph($graphwidth);
+		
+		// Get the date range from user input
+		$graph->SetDateRange($charts_data['start_on'],$charts_data['end_on']);
+		$graph->SetFrame(true,'#cccccc',1);
+		
+		// Scale months and years
+		$graph->scale->month->SetStyle(MONTHSTYLE_SHORTNAMEYEAR4);
+		$graph->scale->month->SetFontColor("#555555");
+		$graph->scale->month->SetBackgroundColor("#d6d3a4");
+		// Setup a horizontal grid
+		
+		if ($charts_data['showhgrid']) {
+			$graph->hgrid->Show();
+			$graph->hgrid->SetRowFillColor('#000000@0.95');
+		}
+		
+		// Some styling
+		// $graph->SetShadow();
+		$graph->SetMarginColor('#fbfbfb');
+		$graph->SetBox(true, "#555555",1);
+		$graph->SetBackgroundGradient('#fcfcfc','#e0e0e0',GRAD_HOR,BGRAD_MARGIN);
+		$graph->SetMargin(20,20,20,27);
+		
+		// Set titles and some fonts to make it prettier
+		$graph->title->Set($project->active_project->getName());
+		if ($this->use_ttf_fonts) $graph->title->SetFont(FF_VERDANA,FS_BOLD,12);
+		$graph->subtitle->Set("Vision general del proyecto");
+		if ($this->use_ttf_fonts) $graph->subtitle->SetFont(FF_VERDANA,FS_NORMAL,10);
+		
+		$graph->ShowHeaders(GANTT_HDAY | GANTT_HWEEK | GANTT_HMONTH);
+		//$graph->scale->week->SetStyle(WEEKSTYLE_FIRSTDAY);
+		
+		// Add line for today
+		// Setup a vertical marker line
+		if ($charts_data['showtoday']) {
+			$vline = new GanttVLine(strftime('%Y-%m-%d', time()));
+			$vline->SetDayOffset(0.5);
+			$vline->title->Set("Today");
+			if ($this->use_ttf_fonts)  $vline->title->SetFont(FF_FONT1,FS_BOLD,10);
+			$graph->Add($vline);
+		}
+		
+		// Get Milestones from project, if enabled!
+		$milestones = Milestones::findByProject($project->active_project, $project->logged_user);
+		if (count($milestones) > 0) {
+			// JpGraph is ready, now lets cycle through milestones, finding tasks
+			$date_lo = 99999999;
+			$date_hi = 00000000;
+			$bar = -1;
+			
+			foreach ($milestones as $milestone) {
+				$ms_task_count = 0;
+				$ms_complete_task_count = 0;
 
 		// Add milestone to activities
 		$name = $milestone->getName();
@@ -120,32 +117,33 @@
 
 		// Cycle through tickets
 		$tickets = $objects['Tickets'];
+		
 		foreach ($tickets as $ticket) {
-
-                    $ms_task_count+=$ticket->countTasks();
-                    $ms_complete_task_count+=$ticket->countCompletedTasks();
-
-		    $name = $ticket->getName();
-		    $count = $ticket->countTasks();
-		    $start = '';
-		    # $ticket->getStartOn() is *not* a standard feature of
-		    # ActiveCollab, but it does get added by the Planning
-		    # module, and we support it if it exits.
-		    # http://appsmagnet.com/activecollab-main/planning-module/
-		    if (method_exists($ticket,'getStartOn')) {
-		      $start = substr($ticket->getStartOn(),0,10);
-		    }
-		    $due = substr($ticket->getDueOn(),0,10);
-
-		    $status = "Due $due";
-    		    if ($ticket->isLate())  $status = 'Late';
-		    if ($ticket->isCompleted())  $status = 'Completed';
-		    if ($ticket->isToday()) $status = 'Due today';	
-
-		    # If the ticket has a StartOn and DueOn then plot it
-		    # with a GanttBar, else use a JpMileStone.
-		  if ($charts_data['showtickets']) {
-		    if ($start != '' && $due != '') {
+			$ms_task_count +=$ ticket->countTasks();
+			$ms_complete_task_count += $ticket->countCompletedTasks();
+			
+			$name = $ticket->getName();
+			$count = $ticket->countTasks();
+			$start = '';
+			
+			# $ticket->getStartOn() is *not* a standard feature of
+			# ActiveCollab, but it does get added by the Planning
+			# module, and we support it if it exits.
+			# http://appsmagnet.com/activecollab-main/planning-module/
+			if (method_exists($ticket,'getStartOn')) {
+				$start = substr($ticket->getStartOn(),0,10);
+			}
+			$due = substr($ticket->getDueOn(),0,10);
+			
+			$status = "Due $due";
+			if ($ticket->isLate())  $status = 'Late';
+			if ($ticket->isCompleted())  $status = 'Completed';
+			if ($ticket->isToday()) $status = 'Due today';
+			
+			# If the ticket has a StartOn and DueOn then plot it
+			# with a GanttBar, else use a JpMileStone.
+			if ($charts_data['showtickets']) {
+				if ($start != '' && $due != '') {
 		      $ms = new GanttBar(++$bar,$this->short_name(" $name ($count) - $status", $lengthlimit),$start,$due,'',0.35);
 		      $ms->SetFillColor('green');
 		      $ms->SetPattern(BAND_RDIAG,'darkgreen');
@@ -211,11 +209,12 @@
 		} // foreach
 
 		# Calculate the % complete and add that to the $activity
-		$ms_progress = $ms_complete_task_count / $ms_task_count;
+		$ms_progress = ($ms_task_count) ? $ms_complete_task_count / $ms_task_count : 0;
 		$activity->progress->Set( $ms_progress );
 		$activity->progress->SetFillColor('green');
 		$activity->progress->SetPattern( BAND_SOLID , "black" );
 		$activity->caption->Set(sprintf("%0.1f%%",$ms_progress * 100));
+		
 		#$activity->caption->SetBox('yellow');
 		if ($this->use_ttf_fonts) $activity->caption->SetFont(FF_ARIAL,FS_BOLD,9);
 
