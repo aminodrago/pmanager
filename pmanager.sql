@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.8deb1.natty~ppa.1
+-- version 3.4.10deb1.natty~ppa.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-02-2012 a las 17:37:06
+-- Tiempo de generación: 23-03-2012 a las 15:02:38
 -- Versión del servidor: 5.1.54
 -- Versión de PHP: 5.3.8-1~ppa3~natty
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `acx_activity_logs` (
   PRIMARY KEY (`id`),
   KEY `created_on` (`created_on`),
   KEY `project_id` (`project_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=58 ;
 
 --
 -- Volcado de datos para la tabla `acx_activity_logs`
@@ -87,7 +87,10 @@ INSERT INTO `acx_activity_logs` (`id`, `type`, `object_id`, `project_id`, `actio
 (51, 'NewCommentActivityLog', 64, 1, NULL, '2012-02-20 23:25:26', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL),
 (52, 'NewCommentActivityLog', 65, 1, NULL, '2012-02-20 23:25:37', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL),
 (53, 'TaskCompletedActivityLog', 62, 1, NULL, '2012-02-20 23:25:37', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL),
-(54, 'TimeAddedActivityLog', 66, 1, NULL, '2012-02-20 23:25:51', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL);
+(54, 'TimeAddedActivityLog', 66, 1, NULL, '2012-02-20 23:25:51', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL),
+(55, 'ObjectCreatedActivityLog', 67, 1, NULL, '2012-03-16 23:00:41', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL),
+(56, 'NewTaskActivityLog', 68, 1, NULL, '2012-03-16 23:05:25', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL),
+(57, 'NewTaskActivityLog', 69, 1, NULL, '2012-03-16 23:05:32', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -112,7 +115,8 @@ INSERT INTO `acx_assignments` (`user_id`, `object_id`, `is_owner`) VALUES
 (19, 46, 1),
 (19, 56, 1),
 (19, 57, 1),
-(19, 62, 1);
+(19, 62, 1),
+(19, 67, 1);
 
 -- --------------------------------------------------------
 
@@ -855,7 +859,7 @@ CREATE TABLE IF NOT EXISTS `acx_projects` (
 --
 
 INSERT INTO `acx_projects` (`id`, `group_id`, `company_id`, `name`, `leader_id`, `leader_name`, `leader_email`, `overview`, `status`, `type`, `default_visibility`, `starts_on`, `completed_on`, `completed_by_id`, `completed_by_name`, `completed_by_email`, `created_on`, `created_by_id`, `created_by_name`, `created_by_email`, `updated_on`, `open_tasks_count`, `total_tasks_count`) VALUES
-(1, 1, 3, 'Plataforma de Juegos', 19, 'Jose Mejia', 'jmejia.tpp@gmail.com', '<p>Sitio desarrollado en PHP en framework de Joomla</p>', 'active', 'normal', 0, '2011-06-29', NULL, NULL, NULL, NULL, '2011-07-06 23:21:46', 19, 'Jose Mejia', 'jmejia.tpp@gmail.com', '2012-02-20 23:25:37', 10, 15),
+(1, 1, 3, 'Plataforma de Juegos', 19, 'Jose Mejia', 'jmejia.tpp@gmail.com', '<p>Sitio desarrollado en PHP en framework de Joomla</p>', 'active', 'normal', 0, '2011-06-29', NULL, NULL, NULL, NULL, '2011-07-06 23:21:46', 19, 'Jose Mejia', 'jmejia.tpp@gmail.com', '2012-03-16 23:05:32', 13, 18),
 (4, 3, 4, 'Proyecto 1', 21, 'administrador-sistema@nopticon.com', 'administrador-sistema@nopticon.com', '<p>Descripción de proyecto 1</p>', 'active', 'normal', 1, '2011-07-06', NULL, NULL, NULL, NULL, '2011-07-26 17:34:31', 21, 'administrador-sistema@nopticon.com', 'administrador-sistema@nopticon.com', NULL, 0, 0),
 (5, 4, 4, 'Proyecto 2', 21, 'administrador-sistema@nopticon.com', 'administrador-sistema@nopticon.com', '<p>Descripción Proyecto 2</p>', 'active', 'normal', 1, '2011-07-26', NULL, NULL, NULL, NULL, '2011-07-26 17:44:15', 21, 'administrador-sistema@nopticon.com', 'administrador-sistema@nopticon.com', NULL, 0, 0);
 
@@ -957,7 +961,7 @@ CREATE TABLE IF NOT EXISTS `acx_project_objects` (
   KEY `created_on` (`created_on`),
   KEY `due_on` (`due_on`),
   KEY `completed_on` (`completed_on`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=67 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
 
 --
 -- Volcado de datos para la tabla `acx_project_objects`
@@ -1008,7 +1012,10 @@ INSERT INTO `acx_project_objects` (`id`, `source`, `type`, `module`, `project_id
 (63, NULL, 'Comment', 'resources', 1, NULL, 62, 'Ticket', NULL, '<p>Actualización 1</p>', NULL, 3, 1, NULL, NULL, '2012-02-20 23:25:19', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (64, NULL, 'Comment', 'resources', 1, NULL, 62, 'Ticket', NULL, '<p>Actualización 2</p>', NULL, 3, 1, NULL, NULL, '2012-02-20 23:25:26', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (65, NULL, 'Comment', 'resources', 1, NULL, 62, 'Ticket', NULL, '<p>Actualización y fin 3</p>', NULL, 3, 1, NULL, NULL, '2012-02-20 23:25:37', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(66, NULL, 'TimeRecord', 'timetracking', 1, NULL, 62, 'Ticket', NULL, '', NULL, 3, 1, NULL, NULL, '2012-02-20 23:25:51', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 'Jose Mejia', 'nopticon@gmail.com', 19, 1, 8.00, NULL, NULL, NULL, '2012-02-20', NULL, NULL, NULL, NULL, NULL, NULL, 1);
+(66, NULL, 'TimeRecord', 'timetracking', 1, NULL, 62, 'Ticket', NULL, '', NULL, 3, 1, NULL, NULL, '2012-02-20 23:25:51', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 'Jose Mejia', 'nopticon@gmail.com', 19, 1, 8.00, NULL, NULL, NULL, '2012-02-20', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(67, NULL, 'Ticket', 'tickets', 1, 0, 4, NULL, 'Tarea 2', '<p>t2</p>', '', 3, 1, 0, NULL, '2012-03-16 23:00:41', 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-03-16 23:01:35', 19, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(68, NULL, 'Task', 'resources', 1, 0, 67, 'Ticket', NULL, 'tt2', NULL, 3, 1, 0, NULL, '2012-03-16 23:05:25', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(69, NULL, 'Task', 'resources', 1, 0, 67, 'Ticket', NULL, 'tt3', NULL, 3, 1, 0, NULL, '2012-03-16 23:05:32', 19, 'Jose Mejia', 'nopticon@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1109,10 +1116,6 @@ INSERT INTO `acx_project_object_views` (`object_id`, `created_by_id`, `created_b
 (48, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:15:05'),
 (49, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:15:05'),
 (56, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:21:06'),
-(51, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:23:01'),
-(52, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:23:01'),
-(53, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:23:01'),
-(58, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:23:46'),
 (61, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:24:28'),
 (55, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:24:28'),
 (54, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:24:28'),
@@ -1123,7 +1126,14 @@ INSERT INTO `acx_project_object_views` (`object_id`, `created_by_id`, `created_b
 (63, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:25:37'),
 (64, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:25:37'),
 (65, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:25:37'),
-(57, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:26:19');
+(57, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-20 23:26:19'),
+(58, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-21 14:53:58'),
+(59, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-21 14:53:58'),
+(60, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-21 14:53:58'),
+(51, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-21 14:54:02'),
+(52, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-21 14:54:02'),
+(53, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-02-21 14:54:02'),
+(67, 19, 'Jose Mejia', 'nopticon@gmail.com', '2012-03-16 23:01:35');
 
 -- --------------------------------------------------------
 
@@ -1378,6 +1388,7 @@ INSERT INTO `acx_search_index` (`object_id`, `type`, `content`) VALUES
 (45, 'ProjectObject', 'General\n\n'),
 (25, 'User', 'coordinador-maquetacion@nopticon.com'),
 (65, 'ProjectObject', '<p>Actualización y fin 3</p>\n\n'),
+(67, 'ProjectObject', 'Tarea 2\n\n<p>t2</p>\n\n'),
 (63, 'ProjectObject', '<p>Actualización 1</p>\n\n'),
 (64, 'ProjectObject', '<p>Actualización 2</p>\n\n'),
 (62, 'ProjectObject', 'Ticket hito 2\n\n<p>Desc Ticket hito 2</p>\n\n'),
@@ -1400,6 +1411,8 @@ INSERT INTO `acx_search_index` (`object_id`, `type`, `content`) VALUES
 (31, 'ProjectObject', '<p>yoyo1</p>\n\n'),
 (32, 'ProjectObject', '<p>1.esta es una prueba.</p><p>2.esta es una prueba2.</p><p>3.esta es una prueba3.</p><p> </p>\n\n'),
 (33, 'ProjectObject', '<p>tomate 123456789</p>\n\n'),
+(68, 'ProjectObject', 'tt2\n\n'),
+(69, 'ProjectObject', 'tt3\n\n'),
 (27, 'User', 'desarrollador@nopticon.com'),
 (28, 'User', 'disenador@nopticon.com'),
 (29, 'User', 'gerente-cuenta@nopticon.com'),
@@ -1492,7 +1505,10 @@ INSERT INTO `acx_subscriptions` (`user_id`, `parent_id`) VALUES
 (19, 57),
 (19, 59),
 (19, 60),
-(19, 62);
+(19, 62),
+(19, 67),
+(19, 68),
+(19, 69);
 
 -- --------------------------------------------------------
 
@@ -1632,7 +1648,7 @@ CREATE TABLE IF NOT EXISTS `acx_users` (
 --
 
 INSERT INTO `acx_users` (`id`, `company_id`, `role_id`, `first_name`, `last_name`, `email`, `password`, `token`, `created_on`, `updated_on`, `last_login_on`, `last_visit_on`, `last_activity_on`, `auto_assign`, `auto_assign_role_id`, `auto_assign_permissions`, `password_reset_key`, `password_reset_on`) VALUES
-(19, 4, 12, 'Jose', 'Mejia', 'nopticon@gmail.com', 'fec993d0fb593875cd788fcc87593b66428df2cc', 'viyL9XQ6I9Z3DPB7ceIwhC7f7LTon0TgOkYAzWbI', NULL, '2011-12-09 15:46:22', '2012-02-20 21:38:27', '2011-12-14 21:34:03', '2012-02-20 23:35:39', 0, NULL, 'N;', '', NULL),
+(19, 4, 12, 'Jose', 'Mejia', 'nopticon@gmail.com', 'fec993d0fb593875cd788fcc87593b66428df2cc', 'viyL9XQ6I9Z3DPB7ceIwhC7f7LTon0TgOkYAzWbI', NULL, '2011-12-09 15:46:22', '2012-03-20 17:59:45', '2012-03-20 17:59:45', '2012-03-20 17:59:45', 0, NULL, 'N;', '', NULL),
 (21, 4, 12, '', '', 'administrador-sistema@nopticon.com', 'fec993d0fb593875cd788fcc87593b66428df2cc', 'TjR4Pz52PALjdIaLSeGOeRTamI5V0P7SYMLDbEtQ', '2011-07-26 17:16:47', '2011-07-26 17:23:42', '2011-07-28 13:22:47', '2011-07-27 13:07:10', '2011-07-28 18:49:50', 0, 0, 'N;', NULL, NULL),
 (23, 4, 25, '', '', 'coordinador-cuenta@nopticon.com', 'fec993d0fb593875cd788fcc87593b66428df2cc', '5619D2Il6eZVH9e5SdIOVwqwZr1i8UcXRFNpQHtF', '2011-07-26 17:17:21', '2011-07-26 17:23:51', NULL, NULL, NULL, 0, 0, 'N;', NULL, NULL),
 (24, 4, 11, '', '', 'administrador-general@nopticon.com', 'fec993d0fb593875cd788fcc87593b66428df2cc', 'j7uU8dM4LsyHkFSamqGVFO92Hjd77alf7FZ4JBVk', '2011-07-26 17:18:07', '2011-07-26 17:23:33', NULL, NULL, NULL, 0, 0, 'N;', NULL, NULL),
@@ -1666,7 +1682,7 @@ INSERT INTO `acx_user_config_options` (`user_id`, `name`, `value`) VALUES
 (19, 'im_type', 's:6:"Google";'),
 (19, 'im_value', 's:20:"jmejia.tpp@gmail.com";'),
 (19, 'language', 's:1:"2";'),
-(19, 'status_update_last_visited', 'O:13:"DateTimeValue":8:{s:4:"hour";i:23;s:6:"minute";i:11;s:6:"second";i:44;s:9:"timestamp";i:1329779504;s:3:"day";i:20;s:5:"month";i:2;s:4:"year";i:2012;s:9:"date_data";a:11:{s:7:"seconds";i:44;s:7:"minutes";i:11;s:5:"hours";i:23;s:4:"mday";i:20;s:4:"wday";i:1;s:3:"mon";i:2;s:4:"year";i:2012;s:4:"yday";i:50;s:7:"weekday";s:6:"Monday";s:5:"month";s:8:"February";i:0;i:1329779504;}}'),
+(19, 'status_update_last_visited', 'O:13:"DateTimeValue":8:{s:4:"hour";i:23;s:6:"minute";i:11;s:6:"second";i:40;s:9:"timestamp";i:1331939500;s:3:"day";i:16;s:5:"month";i:3;s:4:"year";i:2012;s:9:"date_data";a:11:{s:7:"seconds";i:40;s:7:"minutes";i:11;s:5:"hours";i:23;s:4:"mday";i:16;s:4:"wday";i:5;s:3:"mon";i:3;s:4:"year";i:2012;s:4:"yday";i:75;s:7:"weekday";s:6:"Friday";s:5:"month";s:5:"March";i:0;i:1331939500;}}'),
 (19, 'time_first_week_day', 'i:0;'),
 (19, 'time_timezone', 'i:0;'),
 (19, 'visual_editor', 'b:1;');
@@ -1691,14 +1707,14 @@ CREATE TABLE IF NOT EXISTS `acx_user_sessions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `session_key` (`session_key`),
   KEY `expires_on` (`expires_on`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=97 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=100 ;
 
 --
 -- Volcado de datos para la tabla `acx_user_sessions`
 --
 
 INSERT INTO `acx_user_sessions` (`id`, `user_id`, `user_ip`, `user_agent`, `visits`, `remember`, `created_on`, `last_activity_on`, `expires_on`, `session_key`) VALUES
-(96, 19, '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.11 (KHTML, like Gecko) Ubuntu/11.04 Chromium/17.0.963.26 Chrome/17.0.963.26 Safari/535.11', 477, 0, '2012-02-20 15:38:27', '2012-02-20 17:35:39', '2012-02-21 00:05:39', 'o76EHbdkEk2MQeK7fbjeITwuLnxlzXZvR3FSizjs');
+(99, 19, '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.11 (KHTML, like Gecko) Ubuntu/11.04 Chromium/17.0.963.65 Chrome/17.0.963.65 Safari/535.11', 88, 1, '2012-03-16 12:41:55', '2012-03-20 11:59:45', '2012-04-03 17:59:45', 'osYZFhuAAOaVvP82Zoc06JtH65Gdm5fqdyDbkPcW');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
