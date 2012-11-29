@@ -122,7 +122,7 @@ class ChartsJpGraphGantt {
 				
 				foreach ($tickets as $ticket) {
 					$ms_task_count += $ticket->countTasks();
-					print_r($ticket);
+					
 					$ms_complete_task_count += $ticket->countCompletedTasks();
 					
 					$name = $ticket->getName();
@@ -138,10 +138,10 @@ class ChartsJpGraphGantt {
 					}
 					$due = substr($ticket->getDueOn(),0,10);
 					
-					$status = "Due $due";
-					if ($ticket->isLate())  $status = 'Late';
-					if ($ticket->isCompleted())  $status = 'Completed';
-					if ($ticket->isToday()) $status = 'Due today';
+					$status = "Fin $due";
+					if ($ticket->isLate())  $status = 'Tarde';
+					if ($ticket->isCompleted())  $status = 'Completado';
+					if ($ticket->isToday()) $status = 'Fin hoy';
 					
 					# If the ticket has a StartOn and DueOn then plot it
 					# with a GanttBar, else use a JpMileStone.
@@ -153,7 +153,7 @@ class ChartsJpGraphGantt {
 						} else {
 							if ($due == '') { // If we have no due date, hide it
 								$due = strftime('%Y-%m-%d', time()); // Today
-								$status = 'No Due Date';
+								$status = 'Sin fecha fin';
 							}
 							
 							$ms = new JpMileStone(++$bar, $this->short_name(" $name ($count) - $status", $lengthlimit),$due,$status);
@@ -176,7 +176,7 @@ class ChartsJpGraphGantt {
 				
 				// ... and cycle through checklists
 				$checklists = $objects['Checklists'];
-				print_r($ms_task_count);
+				//print_r($ms_task_count);
 				foreach ($checklists as $checklist) {
 					$ms_task_count += $checklist->countTasks();
 					$ms_complete_task_count += $checklist->countCompletedTasks();
@@ -211,9 +211,6 @@ class ChartsJpGraphGantt {
 					} // if
 				} // foreach
 				
-				echo $ms_task_count;
-				exit;
-				
 				# Calculate the % complete and add that to the $activity
 				$ms_progress = ($ms_task_count) ? $ms_complete_task_count / $ms_task_count : 0;
 				$activity->progress->Set($ms_progress);
@@ -239,34 +236,34 @@ class ChartsJpGraphGantt {
 		# Place a legend
 		$legends = array(
 			array(
-				'text' => 'Milestones',
+				'text' => 'Hitos',
 				'color' => 'black',
 				'x' => 23,
-				'y' => 55
+				'y' => 49
 			),
 			array(
 				'text' => 'Tickets',
 				'color' => 'darkgreen',
 				'x' => 27,
-				'y' => 69
+				'y' => 65
 			),
 			array(
 				'text' => '/',
 				'color' => 'black',
 				'x' => 72,
-				'y' => 69
+				'y' => 65
 			),
 			array(
-				'text' => 'Checklists',
+				'text' => 'Listados',
 				'color' => 'blue',
-				'x' => 76,
-				'y' => 69
+				'x' => 81,
+				'y' => 65
 			),
 			array(
-				'text' => 'Tasks',
+				'text' => 'Tareas',
 				'color' => 'darkred',
 				'x' => 31,
-				'y' => 83
+				'y' => 79
 			)
 		);
 		
@@ -306,12 +303,12 @@ class ChartsJpGraphGantt {
 		foreach ($tasks as $task) {
 			$name = $task->getName();
 			$due = substr($task->getDueOn(), 0, 10);
-			$status = "Due $due";
-			if ($task->isLate())  $status = "Late";
-			if ($task->isToday()) $status = "Due today";
+			$status = "Fin $due";
+			if ($task->isLate())  $status = "Tarde";
+			if ($task->isToday()) $status = "Fin hoy";
 			if ($task->isCompleted()) {
 				$due = substr($task->getCompletedOn(),0,10);
-				$status = "Completed";
+				$status = "Completado";
 			}
 			unset($assigned);
 			
